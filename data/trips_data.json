@@ -1,0 +1,1389 @@
+[
+    {
+      "Country": "Greece",
+      "City": "Athens",
+      "Start date": "2025-04-01",
+      "Count of days": 5,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Acropolis tour", "Food tasting"],
+      "Trip details": "Experience the rich history of Athens by visiting the Acropolis and its surroundings. Enjoy traditional Greek dishes at local tavernas. Explore the vibrant city center for a memorable cultural immersion."
+    },
+    {
+      "Country": "Spain",
+      "City": "Barcelona",
+      "Start date": "2025-04-02",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["City tour", "Nightlife tour", "Food tasting"],
+      "Trip details": "Discover Barcelona’s famous architecture, including Gaudí’s Sagrada Família. Indulge in tapas at bustling local bars. Take time to explore the city’s vibrant nightlife and Mediterranean beaches."
+    },
+    {
+      "Country": "Italy",
+      "City": "Rome",
+      "Start date": "2025-04-03",
+      "Count of days": 6,
+      "Cost in EUR": 1350,
+      "Extra activities": ["Museum visit", "Cooking class"],
+      "Trip details": "Immerse yourself in Rome’s ancient history with a visit to the Colosseum and the Roman Forum. Learn to make authentic pasta in a hands-on cooking class. Stroll through charming piazzas and discover hidden local cafes."
+    },
+    {
+      "Country": "Egypt",
+      "City": "Cairo",
+      "Start date": "2025-04-04",
+      "Count of days": 5,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Desert safari", "Historical sites"],
+      "Trip details": "See the legendary Pyramids of Giza and explore the treasures of the Egyptian Museum. Venture out on a thrilling desert safari to witness stunning landscapes. Enjoy traditional Egyptian cuisine while soaking up local culture."
+    },
+    {
+      "Country": "France",
+      "City": "Paris",
+      "Start date": "2025-04-05",
+      "Count of days": 4,
+      "Cost in EUR": 1400,
+      "Extra activities": ["Museum visit", "Wine tasting"],
+      "Trip details": "Experience the romantic ambience of Paris with a visit to the Eiffel Tower and the Louvre. Savor renowned French wines in cozy local bistros. Enjoy walks along the Seine and immerse yourself in the city’s art and fashion."
+    },
+    {
+      "Country": "Turkey",
+      "City": "Istanbul",
+      "Start date": "2025-04-06",
+      "Count of days": 5,
+      "Cost in EUR": 1000,
+      "Extra activities": ["City tour", "Boat ride on the Bosphorus"],
+      "Trip details": "Discover the crossroads of East and West by visiting the Hagia Sophia and Grand Bazaar. Take a scenic boat ride along the Bosphorus Strait. Relish diverse Turkish cuisine and historic architecture at every turn."
+    },
+    {
+      "Country": "Greece",
+      "City": "Santorini",
+      "Start date": "2025-04-07",
+      "Count of days": 5,
+      "Cost in EUR": 1600,
+      "Extra activities": ["Wine tasting", "Volcano excursion"],
+      "Trip details": "Bask in the breathtaking caldera views and famous sunsets of Santorini. Explore volcanic beaches and sample unique local wines. Stroll through charming villages perched atop dramatic cliffs."
+    },
+    {
+      "Country": "Spain",
+      "City": "Madrid",
+      "Start date": "2025-04-08",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Cultural show (Flamenco)", "Food tasting"],
+      "Trip details": "Witness the passion of flamenco in a traditional Madrid tablao. Sample local tapas in vibrant neighborhood markets. Visit world-class museums like the Prado and Reina Sofía."
+    },
+    {
+      "Country": "Italy",
+      "City": "Venice",
+      "Start date": "2025-04-09",
+      "Count of days": 3,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Gondola ride", "Museum visit"],
+      "Trip details": "Glide through Venice’s canals on an iconic gondola ride. Admire the architecture and art of St. Mark’s Basilica. Uncover hidden gems in the city’s quieter backstreets and canals."
+    },
+    {
+      "Country": "Croatia",
+      "City": "Dubrovnik",
+      "Start date": "2025-04-10",
+      "Count of days": 5,
+      "Cost in EUR": 1100,
+      "Extra activities": ["City wall walk", "Boat excursion"],
+      "Trip details": "Wander the historic city walls for stunning Adriatic views. Hop on a boat to nearby islands for crystal-clear waters. Enjoy local Mediterranean cuisine and centuries-old architecture."
+    },
+    {
+      "Country": "Jordan",
+      "City": "Amman",
+      "Start date": "2025-04-11",
+      "Count of days": 5,
+      "Cost in EUR": 980,
+      "Extra activities": ["Desert safari in Wadi Rum", "Historical sites"],
+      "Trip details": "Experience the vibrant modern and ancient sides of Amman. Journey to Wadi Rum’s desert landscapes for a true Bedouin adventure. Taste Middle Eastern specialties in lively markets and restaurants."
+    },
+    {
+      "Country": "Egypt",
+      "City": "Luxor",
+      "Start date": "2025-04-12",
+      "Count of days": 5,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Temple tours", "Nile cruise"],
+      "Trip details": "Explore ancient temples and tombs along the banks of the Nile. Enjoy a scenic cruise to witness daily life on this historic river. Immerse yourself in local culture with traditional music and cuisine."
+    },
+    {
+      "Country": "Greece",
+      "City": "Crete",
+      "Start date": "2025-04-13",
+      "Count of days": 6,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Beach day", "Cooking class"],
+      "Trip details": "Relax on the stunning beaches of Crete’s coastline. Dive into local traditions with a hands-on cooking class. Discover ancient ruins and charming villages nestled in rugged landscapes."
+    },
+    {
+      "Country": "Morocco",
+      "City": "Marrakesh",
+      "Start date": "2025-04-14",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["Souk visit", "Desert safari"],
+      "Trip details": "Lose yourself in the colorful souks of Marrakesh’s medina. Take a desert excursion for a glimpse of majestic dunes. Enjoy aromatic Moroccan cuisine and the bustling atmosphere of Jemaa el-Fnaa."
+    },
+    {
+      "Country": "Israel",
+      "City": "Tel Aviv",
+      "Start date": "2025-04-15",
+      "Count of days": 4,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Beach day", "City tour"],
+      "Trip details": "Experience the lively beachfront promenade of Tel Aviv. Explore the city’s cosmopolitan vibe and cultural highlights. Indulge in Middle Eastern dishes and modern fusion cuisine."
+    },
+    {
+      "Country": "Germany",
+      "City": "Berlin",
+      "Start date": "2025-04-16",
+      "Count of days": 5,
+      "Cost in EUR": 950,
+      "Extra activities": ["Museum Island visit", "Nightlife tour"],
+      "Trip details": "Discover Berlin’s historical landmarks, from the Brandenburg Gate to remnants of the Wall. Dive into world-class museums on Museum Island. Enjoy the dynamic nightlife and diverse food scene."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Lisbon",
+      "Start date": "2025-04-17",
+      "Count of days": 5,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Fado music show", "Wine tasting"],
+      "Trip details": "Ride the historic tram through Lisbon’s narrow streets. Enjoy panoramic views from hilltop miradouros. Listen to soulful Fado music while sampling Portuguese wines."
+    },
+    {
+      "Country": "Croatia",
+      "City": "Split",
+      "Start date": "2025-04-18",
+      "Count of days": 5,
+      "Cost in EUR": 900,
+      "Extra activities": ["Island hopping", "Historical sites"],
+      "Trip details": "Roam through Diocletian’s Palace in the heart of Split. Take a boat to nearby islands for pristine beaches and clear waters. Immerse yourself in Dalmatian cuisine and relaxed coastal charm."
+    },
+    {
+      "Country": "United Arab Emirates",
+      "City": "Dubai",
+      "Start date": "2025-04-19",
+      "Count of days": 4,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Desert safari", "Shopping spree"],
+      "Trip details": "Marvel at Dubai’s futuristic skyline and grand shopping malls. Venture into the desert for dune bashing and a Bedouin-style dinner. Experience world-class dining and entertainment options."
+    },
+    {
+      "Country": "France",
+      "City": "Nice",
+      "Start date": "2025-04-20",
+      "Count of days": 5,
+      "Cost in EUR": 1150,
+      "Extra activities": ["Beach day", "Museum visit"],
+      "Trip details": "Stroll along the famous Promenade des Anglais. Visit the museums dedicated to local and international art. Savor Provençal flavors and enjoy the azure waters of the Mediterranean."
+    },
+    {
+      "Country": "Italy",
+      "City": "Florence",
+      "Start date": "2025-04-21",
+      "Count of days": 4,
+      "Cost in EUR": 1250,
+      "Extra activities": ["Art gallery tour", "Cooking class"],
+      "Trip details": "Admire Renaissance masterpieces at the Uffizi Gallery. Learn to prepare traditional Tuscan dishes in a local cooking class. Walk across the Ponte Vecchio for a glimpse of the city’s storied past."
+    },
+    {
+      "Country": "Spain",
+      "City": "Valencia",
+      "Start date": "2025-04-22",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["City of Arts and Sciences visit", "Beach day"],
+      "Trip details": "Explore Valencia’s modern architectural marvels at the City of Arts and Sciences. Relax on the city’s broad sandy beaches. Enjoy the birthplace of paella for a truly authentic culinary experience."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Porto",
+      "Start date": "2025-04-23",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Wine tasting", "River cruise"],
+      "Trip details": "Savor port wine in the city’s historic cellars. Cruise along the Douro River for picturesque views of Porto’s colorful buildings. Wander the narrow streets and charming squares of the Ribeira district."
+    },
+    {
+      "Country": "Greece",
+      "City": "Rhodes",
+      "Start date": "2025-04-24",
+      "Count of days": 5,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Medieval city tour", "Beach day"],
+      "Trip details": "Step back in time within Rhodes’ UNESCO-listed old town. Relax on golden beaches with warm Aegean waters. Experience Greek island life through local tavernas and lively streets."
+    },
+    {
+      "Country": "Morocco",
+      "City": "Casablanca",
+      "Start date": "2025-04-25",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["Hassan II Mosque visit", "Food tasting"],
+      "Trip details": "Admire the impressive architecture of the Hassan II Mosque. Sample Moroccan street food bursting with spices and flavors. Stroll through modern boulevards and traditional neighborhoods."
+    },
+    {
+      "Country": "Cyprus",
+      "City": "Nicosia",
+      "Start date": "2025-04-26",
+      "Count of days": 5,
+      "Cost in EUR": 950,
+      "Extra activities": ["Historical sites", "Local market visit"],
+      "Trip details": "Uncover the rich history within Nicosia’s walled old city. Visit traditional markets for a taste of Cypriot culture. Relax and enjoy the island’s laid-back Mediterranean lifestyle."
+    },
+    {
+      "Country": "Egypt",
+      "City": "Sharm El Sheikh",
+      "Start date": "2025-04-27",
+      "Count of days": 5,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Snorkeling", "Boat excursion"],
+      "Trip details": "Discover vibrant coral reefs on a snorkeling adventure in the Red Sea. Cruise along the coast for breathtaking marine vistas. Relax at seaside cafes and savor local seafood delicacies."
+    },
+    {
+      "Country": "Italy",
+      "City": "Milan",
+      "Start date": "2025-04-28",
+      "Count of days": 3,
+      "Cost in EUR": 950,
+      "Extra activities": ["Shopping spree", "Art gallery visit"],
+      "Trip details": "Experience Milan’s fashion-forward scene and upscale shopping. Admire Leonardo da Vinci’s works and other masterpieces. Enjoy chic cafes and a glimpse of modern Italian urban life."
+    },
+    {
+      "Country": "Austria",
+      "City": "Vienna",
+      "Start date": "2025-04-29",
+      "Count of days": 4,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Classical concert", "Museum visit"],
+      "Trip details": "Attend a world-class concert in the city of music. Explore royal heritage at the Hofburg Palace and Schönbrunn. Delight in Viennese coffeehouse culture and traditional pastries."
+    },
+    {
+      "Country": "Germany",
+      "City": "Munich",
+      "Start date": "2025-04-30",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Beer garden visit", "Historical sites"],
+      "Trip details": "Taste Bavarian specialties in festive beer gardens. Explore Munich’s historic center, including Marienplatz and the Glockenspiel. Enjoy day trips to nearby castles or the stunning Alpine foothills."
+    },
+    {
+      "Country": "Czech Republic",
+      "City": "Prague",
+      "Start date": "2025-05-01",
+      "Count of days": 4,
+      "Cost in EUR": 800,
+      "Extra activities": ["Castle tour", "River cruise"],
+      "Trip details": "Marvel at Prague Castle’s grandeur and its Gothic cathedral. Take a relaxing boat ride on the Vltava River. Wander Old Town’s cobblestone streets and enjoy Czech cuisine in lively pubs."
+    },
+    {
+      "Country": "Hungary",
+      "City": "Budapest",
+      "Start date": "2025-05-02",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["Thermal bath visit", "Nightlife tour"],
+      "Trip details": "Rejuvenate in famous thermal baths overlooking the Danube. Discover ruin bars and vibrant nightlife in the Jewish Quarter. Explore grand architecture and Hungarian gastronomy."
+    },
+    {
+      "Country": "Spain",
+      "City": "Seville",
+      "Start date": "2025-05-03",
+      "Count of days": 5,
+      "Cost in EUR": 950,
+      "Extra activities": ["Cathedral visit", "Cultural show (Flamenco)"],
+      "Trip details": "Admire the world’s largest Gothic cathedral and climb the Giralda tower. Immerse yourself in the rhythms of flamenco dancing. Savor local tapas in atmospheric squares and taverns."
+    },
+    {
+      "Country": "France",
+      "City": "Bordeaux",
+      "Start date": "2025-05-04",
+      "Count of days": 5,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Wine tasting", "Vineyard tour"],
+      "Trip details": "Discover the heart of French wine production with guided vineyard visits. Indulge in tastings that showcase Bordeaux’s world-famous reds. Explore the elegant streets and historic buildings along the Garonne."
+    },
+    {
+      "Country": "Turkey",
+      "City": "Cappadocia",
+      "Start date": "2025-05-05",
+      "Count of days": 4,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Hot air balloon ride", "Cave exploration"],
+      "Trip details": "Witness dawn from a hot air balloon floating over fairy chimneys. Discover ancient cave dwellings and subterranean cities. Enjoy regional cuisine and the surreal landscapes of this unique region."
+    },
+    {
+      "Country": "Germany",
+      "City": "Hamburg",
+      "Start date": "2025-05-06",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Harbor boat ride", "Museum visit"],
+      "Trip details": "Explore Hamburg’s maritime heritage at the bustling port. Take a boat ride to see the city from the water. Dine on fresh seafood and stroll through modern waterfront districts."
+    },
+    {
+      "Country": "Israel",
+      "City": "Jerusalem",
+      "Start date": "2025-05-07",
+      "Count of days": 5,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Religious sites tour", "Local market visit"],
+      "Trip details": "Walk through the Old City’s four quarters, rich in history and culture. Visit revered religious sites and learn about their significance. Experience bustling Middle Eastern markets and traditional dishes."
+    },
+    {
+      "Country": "Lebanon",
+      "City": "Beirut",
+      "Start date": "2025-05-08",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Nightlife tour", "Historical sites"],
+      "Trip details": "Experience Beirut’s energetic nightlife and modern clubs. Explore ancient ruins and museums revealing the city’s layered past. Savor Lebanese culinary delights in lively districts."
+    },
+    {
+      "Country": "Austria",
+      "City": "Salzburg",
+      "Start date": "2025-05-09",
+      "Count of days": 3,
+      "Cost in EUR": 750,
+      "Extra activities": ["Sound of Music tour", "Fortress visit"],
+      "Trip details": "Relive scenes from The Sound of Music in the city’s scenic surroundings. Explore Hohensalzburg Fortress for panoramic views. Enjoy Austrian pastries in charming cafes and gardens."
+    },
+    {
+      "Country": "Switzerland",
+      "City": "Zurich",
+      "Start date": "2025-05-10",
+      "Count of days": 4,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Lake cruise", "Museum visit"],
+      "Trip details": "Cruise on Lake Zurich’s serene waters with alpine backdrops. Stroll the stylish Bahnhofstrasse for shopping and dining. Visit cultural institutions for Swiss art, history, and chocolate treats."
+    },
+    {
+      "Country": "Belgium",
+      "City": "Bruges",
+      "Start date": "2025-05-11",
+      "Count of days": 3,
+      "Cost in EUR": 700,
+      "Extra activities": ["Canal boat tour", "Chocolate tasting"],
+      "Trip details": "Sail along Bruges’ picturesque canals past medieval buildings. Sample world-renowned Belgian chocolates and waffles. Admire historic architecture and romantic cobbled streets in the city center."
+    },
+    {
+      "Country": "United Arab Emirates",
+      "City": "Abu Dhabi",
+      "Start date": "2025-05-12",
+      "Count of days": 4,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Desert safari", "Grand Mosque visit"],
+      "Trip details": "Marvel at the opulent design of Sheikh Zayed Grand Mosque. Traverse desert dunes in a thrilling safari adventure. Explore the city’s modern architecture and luxury shopping venues."
+    },
+    {
+      "Country": "Tunisia",
+      "City": "Tunis",
+      "Start date": "2025-05-13",
+      "Count of days": 4,
+      "Cost in EUR": 800,
+      "Extra activities": ["Medina tour", "Carthage visit"],
+      "Trip details": "Wander the winding alleys of Tunis’ ancient medina. Explore Carthage’s archaeological sites for a glimpse into history. Enjoy local North African cuisine and vibrant souks."
+    },
+    {
+      "Country": "Cyprus",
+      "City": "Limassol",
+      "Start date": "2025-05-14",
+      "Count of days": 5,
+      "Cost in EUR": 980,
+      "Extra activities": ["Beach day", "Winery tour"],
+      "Trip details": "Relax on the sun-kissed beaches of Limassol’s coastline. Visit local wineries producing distinctive Cypriot wines. Experience the harmonious blend of modern city life and ancient heritage."
+    },
+    {
+      "Country": "Malta",
+      "City": "Valletta",
+      "Start date": "2025-05-15",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Harbor cruise", "Historical sites"],
+      "Trip details": "Cruise the Grand Harbour to appreciate Valletta’s fortified walls. Discover the city’s Baroque architecture and centuries-old forts. Relish local seafood and the island’s Mediterranean atmosphere."
+    },
+    {
+      "Country": "Monaco",
+      "City": "Monaco",
+      "Start date": "2025-05-16",
+      "Count of days": 3,
+      "Cost in EUR": 1500,
+      "Extra activities": ["Casino visit", "Yacht harbor tour"],
+      "Trip details": "Soak up the glitz of Monte Carlo’s casino and luxurious surroundings. Walk along the harbor lined with impressive yachts. Enjoy upscale dining and the scenic Riviera setting."
+    },
+    {
+      "Country": "Slovenia",
+      "City": "Ljubljana",
+      "Start date": "2025-05-17",
+      "Count of days": 4,
+      "Cost in EUR": 800,
+      "Extra activities": ["Castle visit", "River walk"],
+      "Trip details": "Ascend to Ljubljana Castle for panoramic city views. Stroll along the tranquil riverbank lined with cafes. Embrace Slovenia’s capital for its green spaces and laid-back charm."
+    },
+    {
+      "Country": "Slovakia",
+      "City": "Bratislava",
+      "Start date": "2025-05-18",
+      "Count of days": 3,
+      "Cost in EUR": 700,
+      "Extra activities": ["Historical sites", "Danube cruise"],
+      "Trip details": "Explore Bratislava’s Old Town with its medieval towers and gates. Take a Danube boat ride for scenic vistas. Try local Slovak fare in cozy restaurants."
+    },
+    {
+      "Country": "Serbia",
+      "City": "Belgrade",
+      "Start date": "2025-05-19",
+      "Count of days": 4,
+      "Cost in EUR": 750,
+      "Extra activities": ["Fortress visit", "Nightlife tour"],
+      "Trip details": "Visit the imposing Belgrade Fortress overlooking the confluence of two rivers. Sample Balkan cuisine in traditional kafanas. Experience the city’s lively nightlife and cultural blend."
+    },
+    {
+      "Country": "Bosnia and Herzegovina",
+      "City": "Sarajevo",
+      "Start date": "2025-05-20",
+      "Count of days": 3,
+      "Cost in EUR": 650,
+      "Extra activities": ["Cultural tour", "Local market visit"],
+      "Trip details": "Discover Sarajevo’s multicultural history in the Old Town. Taste local pastries and Bosnian coffee in open-air cafes. Wander the narrow streets that reveal centuries of heritage."
+    },
+    {
+      "Country": "North Macedonia",
+      "City": "Skopje",
+      "Start date": "2025-05-21",
+      "Count of days": 4,
+      "Cost in EUR": 700,
+      "Extra activities": ["City center tour", "Canyon visit"],
+      "Trip details": "Walk through Skopje’s modern city center filled with statues and monuments. Venture to Matka Canyon for nature trails and boat rides. Enjoy hearty Balkan dishes at local restaurants."
+    },
+    {
+      "Country": "Albania",
+      "City": "Tirana",
+      "Start date": "2025-05-22",
+      "Count of days": 4,
+      "Cost in EUR": 750,
+      "Extra activities": ["Bunk’Art museum visit", "Food tasting"],
+      "Trip details": "Explore Tirana’s recent past at the fascinating Bunk’Art museum. Indulge in Albanian cuisine at bustling markets and eateries. Enjoy the colorful facades and lively squares of the capital."
+    },
+    {
+      "Country": "Greece",
+      "City": "Thessaloniki",
+      "Start date": "2025-05-23",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["City tour", "Byzantine church visits"],
+      "Trip details": "Wander the waterfront promenade with views of the White Tower. Explore Thessaloniki’s Byzantine heritage in its many churches. Savor northern Greek specialties in lively tavernas."
+    },
+    {
+      "Country": "Italy",
+      "City": "Naples",
+      "Start date": "2025-05-24",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Pizza tasting", "Historic center walk"],
+      "Trip details": "Taste authentic Neapolitan pizza in the city of its origin. Stroll the UNESCO-listed historic center for a glimpse of old-world charm. Visit nearby archaeological sites if time allows."
+    },
+    {
+      "Country": "Spain",
+      "City": "Granada",
+      "Start date": "2025-05-25",
+      "Count of days": 3,
+      "Cost in EUR": 850,
+      "Extra activities": ["Alhambra visit", "Flamenco show"],
+      "Trip details": "Explore the captivating Moorish palace of the Alhambra. Wander the winding lanes of the Albaicín. Feel the pulse of flamenco in authentic tablaos across the city."
+    },
+    {
+      "Country": "Bulgaria",
+      "City": "Sofia",
+      "Start date": "2025-05-26",
+      "Count of days": 4,
+      "Cost in EUR": 700,
+      "Extra activities": ["Rila Monastery day trip", "Food tasting"],
+      "Trip details": "Discover Sofia’s eclectic mix of architecture from ancient to modern. Take a day trip to the stunning Rila Monastery in the mountains. Try local specialties like banitsa and shopska salad."
+    },
+    {
+      "Country": "Romania",
+      "City": "Bucharest",
+      "Start date": "2025-05-27",
+      "Count of days": 4,
+      "Cost in EUR": 750,
+      "Extra activities": ["Palace of Parliament tour", "Historic center visit"],
+      "Trip details": "Witness the grandeur of one of the world’s largest administrative buildings. Stroll the cobblestone streets of the Old Town with its lively bars. Sample Romanian cuisine and delve into the city’s vibrant arts scene."
+    },
+    {
+      "Country": "Netherlands",
+      "City": "Amsterdam",
+      "Start date": "2025-05-28",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Canal cruise", "Museum visit"],
+      "Trip details": "Glide along the picturesque canals lined with historic row houses. Visit world-famous art museums like the Rijksmuseum and Van Gogh Museum. Embrace Amsterdam’s laid-back atmosphere on bike-friendly streets."
+    },
+    {
+      "Country": "Belgium",
+      "City": "Brussels",
+      "Start date": "2025-05-29",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Chocolate tasting", "Beer tour"],
+      "Trip details": "Indulge in Belgian chocolates and waffles around Grand Place. Discover the city’s iconic Atomium and comic art. Enjoy locally brewed beers in centuries-old establishments."
+    },
+    {
+      "Country": "Switzerland",
+      "City": "Geneva",
+      "Start date": "2025-05-30",
+      "Count of days": 3,
+      "Cost in EUR": 950,
+      "Extra activities": ["Lake cruise", "United Nations tour"],
+      "Trip details": "Sail on Lake Geneva for majestic mountain views. Visit international landmarks and learn about global diplomacy. Stroll the charming old town and savor Swiss chocolate and cheese."
+    },
+    {
+      "Country": "Saudi Arabia",
+      "City": "Riyadh",
+      "Start date": "2025-05-31",
+      "Count of days": 4,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Historical sites", "Desert excursion"],
+      "Trip details": "Discover the rapidly evolving cityscape alongside ancient fortresses. Explore Riyadh’s cultural heritage in local museums and souks. Venture into the surrounding desert for a taste of Bedouin life."
+    },
+    {
+      "Country": "Qatar",
+      "City": "Doha",
+      "Start date": "2025-06-01",
+      "Count of days": 4,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Museum of Islamic Art visit", "Desert safari"],
+      "Trip details": "View remarkable collections at one of the region’s top museums. Enjoy a desert safari with dune bashing and a traditional campsite. Experience Doha’s modern skyline and futuristic architecture."
+    },
+    {
+      "Country": "Oman",
+      "City": "Muscat",
+      "Start date": "2025-06-02",
+      "Count of days": 5,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Sultan Qaboos Grand Mosque visit", "Beach day"],
+      "Trip details": "Witness the blend of modern cityscape and old fortresses along the coast. Explore the Sultan Qaboos Grand Mosque’s stunning interiors. Relax on beautiful beaches and sample Omani hospitality."
+    },
+    {
+      "Country": "Cyprus",
+      "City": "Limassol",
+      "Start date": "2025-06-03",
+      "Count of days": 4,
+      "Cost in EUR": 800,
+      "Extra activities": ["Beach day", "Castle visit"],
+      "Trip details": "Unwind on Limassol’s sandy shores under the Mediterranean sun. Tour the centuries-old castle that adds historic charm to the city. Experience lively nightlife and local wine culture."
+    },
+    {
+      "Country": "Malta",
+      "City": "Valletta",
+      "Start date": "2025-06-04",
+      "Count of days": 5,
+      "Cost in EUR": 950,
+      "Extra activities": ["Harbor cruise", "History museum visit"],
+      "Trip details": "Admire Valletta’s grand fortifications from the water. Delve into the island’s rich past at well-curated museums. Savor Mediterranean cuisine and soak up the city’s distinctive charm."
+    },
+    {
+      "Country": "Montenegro",
+      "City": "Podgorica",
+      "Start date": "2025-06-05",
+      "Count of days": 3,
+      "Cost in EUR": 700,
+      "Extra activities": ["City tour", "Lake Skadar excursion"],
+      "Trip details": "Explore the modern capital’s streets and cultural spots. Take a day trip to Lake Skadar for breathtaking natural scenery. Taste Montenegrin wines and Balkan specialties in local restaurants."
+    },
+    {
+      "Country": "Poland",
+      "City": "Krakow",
+      "Start date": "2025-06-06",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["Wawel Castle tour", "Jewish Quarter visit"],
+      "Trip details": "Uncover Krakow’s storied past at Wawel Castle and the Old Town. Learn about the city’s heritage in the historic Jewish Quarter. Enjoy hearty Polish dishes and lively urban squares."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Coimbra",
+      "Start date": "2025-06-07",
+      "Count of days": 3,
+      "Cost in EUR": 650,
+      "Extra activities": ["University tour", "Fado music show"],
+      "Trip details": "Visit one of the oldest universities in Europe, with its baroque library. Experience the soul of Portuguese music at a Fado performance. Enjoy the city’s charming riverside setting and cafes."
+    },
+    {
+      "Country": "Morocco",
+      "City": "Fez",
+      "Start date": "2025-06-08",
+      "Count of days": 4,
+      "Cost in EUR": 800,
+      "Extra activities": ["Medina tour", "Tannery visit"],
+      "Trip details": "Navigate the labyrinthine alleys of Fez’s ancient medina. Watch traditional leather tanning at the famous Chouara Tannery. Savor Moroccan flavors in centuries-old caravanserais."
+    },
+    {
+      "Country": "Germany",
+      "City": "Frankfurt",
+      "Start date": "2025-06-09",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Skyline tour", "Museum Embankment visit"],
+      "Trip details": "See Germany’s financial hub with its striking modern skyline. Walk along the Main River to explore diverse museums. Enjoy traditional Apfelwein in cozy neighborhood pubs."
+    },
+    {
+      "Country": "Netherlands",
+      "City": "Rotterdam",
+      "Start date": "2025-06-10",
+      "Count of days": 3,
+      "Cost in EUR": 750,
+      "Extra activities": ["Architecture tour", "Harbor cruise"],
+      "Trip details": "Admire Rotterdam’s cutting-edge architecture and modern cityscape. Cruise through one of Europe’s largest ports for impressive maritime views. Delight in the multicultural food scene and bustling markets."
+    },
+    {
+      "Country": "Switzerland",
+      "City": "Basel",
+      "Start date": "2025-06-11",
+      "Count of days": 4,
+      "Cost in EUR": 1150,
+      "Extra activities": ["Museum visit", "Rhine River walk"],
+      "Trip details": "Explore Basel’s high concentration of art museums. Stroll along the Rhine for a blend of modern and historical cityscapes. Indulge in Swiss chocolate and scenic old-town squares."
+    },
+    {
+      "Country": "Hungary",
+      "City": "Debrecen",
+      "Start date": "2025-06-12",
+      "Count of days": 3,
+      "Cost in EUR": 700,
+      "Extra activities": ["Thermal bath visit", "Local market tour"],
+      "Trip details": "Relax in Debrecen’s renowned thermal waters. Experience regional fairs and traditional markets. Discover the city’s cultural heritage in its grand churches and public squares."
+    },
+    {
+      "Country": "Romania",
+      "City": "Cluj-Napoca",
+      "Start date": "2025-06-13",
+      "Count of days": 4,
+      "Cost in EUR": 750,
+      "Extra activities": ["Fortress Hill visit", "Local craft beer tasting"],
+      "Trip details": "Get panoramic views from Cetățuia (Fortress Hill). Embrace Transylvanian culture in this vibrant university city. Unwind at pubs offering local brews and Romanian specialties."
+    },
+    {
+      "Country": "Bulgaria",
+      "City": "Varna",
+      "Start date": "2025-06-14",
+      "Count of days": 5,
+      "Cost in EUR": 850,
+      "Extra activities": ["Beach day", "Archaeological museum visit"],
+      "Trip details": "Enjoy sun and sand on the Black Sea coast. Explore the city’s long history at the local archaeological museum. Taste fresh seafood and Bulgarian delicacies along the promenade."
+    },
+    {
+      "Country": "Jordan",
+      "City": "Aqaba",
+      "Start date": "2025-06-15",
+      "Count of days": 4,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Snorkeling", "Desert safari"],
+      "Trip details": "Dive into the Red Sea’s vibrant coral reefs. Experience Wadi Rum’s dramatic desert scenery on a guided tour. Enjoy the warm hospitality and flavors of southern Jordan."
+    },
+    {
+      "Country": "Saudi Arabia",
+      "City": "Jeddah",
+      "Start date": "2025-06-16",
+      "Count of days": 3,
+      "Cost in EUR": 950,
+      "Extra activities": ["Historic Al-Balad tour", "Seafront walk"],
+      "Trip details": "Stroll through the UNESCO-listed old quarter, Al-Balad. Enjoy the bustling atmosphere of the Red Sea coast. Discover contemporary art and delicious local cuisine."
+    },
+    {
+      "Country": "Oman",
+      "City": "Salalah",
+      "Start date": "2025-06-17",
+      "Count of days": 5,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Beach day", "Frankincense trail tour"],
+      "Trip details": "Witness lush landscapes unique to Salalah’s monsoon season. Follow the historical frankincense trail through local souks. Unwind on tranquil beaches offering a serene getaway."
+    },
+    {
+      "Country": "France",
+      "City": "Marseille",
+      "Start date": "2025-06-18",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Boat ride to Calanques", "Seafood tasting"],
+      "Trip details": "Explore Marseille’s multicultural charm and ancient port. Take a boat trip to the stunning limestone inlets known as the Calanques. Savor fresh seafood and Provençal dishes by the sea."
+    },
+    {
+      "Country": "Italy",
+      "City": "Palermo",
+      "Start date": "2025-06-19",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["Street food tour", "Cathedral visit"],
+      "Trip details": "Sample Sicily’s unique street food, famous for its bold flavors. Explore Palermo’s vibrant markets and imposing cathedral. Experience a mix of Arab-Norman influences in architecture and cuisine."
+    },
+    {
+      "Country": "Germany",
+      "City": "Cologne",
+      "Start date": "2025-06-20",
+      "Count of days": 3,
+      "Cost in EUR": 750,
+      "Extra activities": ["Cathedral tour", "Rhine cruise"],
+      "Trip details": "Admire the Gothic masterpiece that is Cologne Cathedral. Enjoy a cruise on the Rhine for picturesque city views. Taste the local Kölsch beer in traditional brewhouses."
+    },
+    {
+      "Country": "Spain",
+      "City": "Malaga",
+      "Start date": "2025-06-21",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Beach day", "Picasso Museum visit"],
+      "Trip details": "Relax on Costa del Sol’s sun-drenched beaches. Explore art history in Picasso’s birthplace at a dedicated museum. Enjoy fresh seafood and Andalusian culture in local taverns."
+    },
+    {
+      "Country": "Greece",
+      "City": "Mykonos",
+      "Start date": "2025-06-22",
+      "Count of days": 5,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Beach parties", "Boat excursion"],
+      "Trip details": "Experience Mykonos’ famous nightlife and lively beaches. Sail to nearby islands for crystal-clear waters and hidden coves. Wander charming alleyways and whitewashed streets in the old town."
+    },
+    {
+      "Country": "Italy",
+      "City": "Verona",
+      "Start date": "2025-06-23",
+      "Count of days": 3,
+      "Cost in EUR": 850,
+      "Extra activities": ["Opera at the Arena", "Historic center walk"],
+      "Trip details": "Delve into the romance of Verona, home to Shakespeare’s Juliet. Watch an open-air opera performance in the ancient arena. Explore the city’s medieval lanes, piazzas, and lively cafes."
+    },
+    {
+      "Country": "Spain",
+      "City": "Bilbao",
+      "Start date": "2025-06-24",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["Guggenheim Museum visit", "Food tasting"],
+      "Trip details": "Marvel at cutting-edge architecture in the iconic Guggenheim Museum. Indulge in Basque pintxos and unique regional wines. Enjoy riverside walks and the city’s vibrant cultural scene."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Braga",
+      "Start date": "2025-06-25",
+      "Count of days": 3,
+      "Cost in EUR": 700,
+      "Extra activities": ["Historic churches tour", "Local pastry tasting"],
+      "Trip details": "Visit impressive baroque churches, including Bom Jesus do Monte. Taste traditional pastries in local bakeries. Immerse yourself in the city’s deep spiritual and cultural heritage."
+    },
+    {
+      "Country": "Croatia",
+      "City": "Hvar",
+      "Start date": "2025-06-26",
+      "Count of days": 4,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Boat excursion", "Wine tasting"],
+      "Trip details": "Sail around hidden coves and glittering waters of the Adriatic. Discover local vineyards and sample Dalmatian wines. Enjoy Hvar’s blend of historical charm and modern beach clubs."
+    },
+    {
+      "Country": "Greece",
+      "City": "Corfu",
+      "Start date": "2025-06-27",
+      "Count of days": 5,
+      "Cost in EUR": 1150,
+      "Extra activities": ["Beach day", "Old Town stroll"],
+      "Trip details": "Relax on idyllic beaches with emerald waters. Wander through Corfu’s Venetian-influenced Old Town. Savor the island’s fusion of Greek and Italian flavors in cozy tavernas."
+    },
+    {
+      "Country": "Greece",
+      "City": "Zakynthos",
+      "Start date": "2025-06-28",
+      "Count of days": 5,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Shipwreck Beach visit", "Boat excursion"],
+      "Trip details": "Admire the famous Navagio (Shipwreck) Beach with its turquoise waters. Take a boat trip to hidden coves and sea caves. Enjoy Greek island life with fresh seafood and friendly locals."
+    },
+    {
+      "Country": "France",
+      "City": "Toulouse",
+      "Start date": "2025-06-29",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["City tour", "Food market visit"],
+      "Trip details": "Explore the “Pink City” for its distinct brick architecture. Taste southwestern French specialties in vibrant food markets. Enjoy the Garonne riverbanks and laid-back cafe culture."
+    },
+    {
+      "Country": "Germany",
+      "City": "Dresden",
+      "Start date": "2025-06-30",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Historic center walk", "Art gallery visit"],
+      "Trip details": "Admire the restored Baroque splendor of Dresden’s Old Town. Visit the renowned Zwinger Palace and Frauenkirche. Enjoy the city’s art collections and riverfront promenades along the Elbe."
+    },
+    {
+      "Country": "Saudi Arabia",
+      "City": "Jeddah",
+      "Start date": "2025-07-01",
+      "Count of days": 4,
+      "Cost in EUR": 1150,
+      "Extra activities": ["Red Sea dive", "Historic Al-Balad tour"],
+      "Trip details": "Explore Jeddah’s cultural heritage at Al-Balad with traditional coral-built houses. Dive in the Red Sea for spectacular marine life. Experience the city’s blend of modern malls and ancient streets."
+    },
+    {
+      "Country": "France",
+      "City": "Lyon",
+      "Start date": "2025-07-02",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["Gastronomic tour", "Historic center stroll"],
+      "Trip details": "Savor Lyon’s reputation as the gastronomic capital of France. Wander through the Renaissance architecture of Vieux Lyon. Enjoy wine pairings and local delicacies in cozy bouchons."
+    },
+    {
+      "Country": "Italy",
+      "City": "Pisa",
+      "Start date": "2025-07-03",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Leaning Tower visit", "Cycling tour"],
+      "Trip details": "Snap the obligatory photo at the famous Leaning Tower. Cycle through picturesque streets and along the Arno River. Indulge in Tuscan flavors at charming trattorias."
+    },
+    {
+      "Country": "Spain",
+      "City": "Malaga",
+      "Start date": "2025-07-04",
+      "Count of days": 5,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Beach day", "Tapas tour"],
+      "Trip details": "Bask in the Mediterranean climate on Malaga’s city beaches. Discover Andalusian tapas in lively local bars. Visit the Alcazaba fortress for sweeping views of the coast."
+    },
+    {
+      "Country": "Italy",
+      "City": "Verona",
+      "Start date": "2025-07-05",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Amphitheater opera", "Historic center walk"],
+      "Trip details": "Witness an opera performance in the ancient Roman amphitheater. Explore Juliet’s balcony and the city’s romantic lore. Dine in piazzas adorned with medieval and Renaissance architecture."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Madeira",
+      "Start date": "2025-07-06",
+      "Count of days": 5,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Levadas hiking", "Wine tasting"],
+      "Trip details": "Hike along scenic levadas for dramatic mountain and coastal vistas. Sample Madeira wine at traditional cellars. Wander the capital, Funchal, for markets, gardens, and seaside charm."
+    },
+    {
+      "Country": "Spain",
+      "City": "Bilbao",
+      "Start date": "2025-07-07",
+      "Count of days": 3,
+      "Cost in EUR": 850,
+      "Extra activities": ["Guggenheim Museum visit", "Pinxtos tour"],
+      "Trip details": "Admire the renowned Guggenheim’s bold architecture. Enjoy Basque culinary delights known as pinxtos in local taverns. Stroll along the Nervion River for an urban yet scenic atmosphere."
+    },
+    {
+      "Country": "Italy",
+      "City": "Milan",
+      "Start date": "2025-07-08",
+      "Count of days": 4,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Fashion district walk", "Duomo rooftop tour"],
+      "Trip details": "Discover Milan’s high-end fashion streets and flagship stores. Take in stunning city views from the Duomo’s rooftop. Enjoy aperitivos and modern Italian cuisine in chic cafes."
+    },
+    {
+      "Country": "Croatia",
+      "City": "Zagreb",
+      "Start date": "2025-07-09",
+      "Count of days": 3,
+      "Cost in EUR": 700,
+      "Extra activities": ["Historic center tour", "Local market visit"],
+      "Trip details": "Wander Upper Town’s colorful rooftops and historic landmarks. Visit bustling Dolac Market for fresh produce and local specialties. Experience Zagreb’s blend of Austro-Hungarian architecture and modern life."
+    },
+    {
+      "Country": "France",
+      "City": "Nice",
+      "Start date": "2025-07-10",
+      "Count of days": 5,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Beach day", "Old Town walk"],
+      "Trip details": "Relax on the famous pebble beaches of the Côte d’Azur. Explore the vibrant Old Town and its flower market. Indulge in French Riviera cuisine and scenic seaside views."
+    },
+    {
+      "Country": "Greece",
+      "City": "Athens",
+      "Start date": "2025-07-11",
+      "Count of days": 4,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Acropolis tour", "Street food tasting"],
+      "Trip details": "Delve into ancient Greek history at the Acropolis and Parthenon. Try local souvlaki and sweet treats in bustling neighborhoods. Experience Athens’ mix of classical heritage and modern culture."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Lisbon",
+      "Start date": "2025-07-12",
+      "Count of days": 5,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Fado music show", "Day trip to Sintra"],
+      "Trip details": "Immerse yourself in the soulful melodies of Fado in a traditional venue. Take a short journey to Sintra’s fairytale palaces. Enjoy the city’s iconic pastel de nata and sweeping viewpoints."
+    },
+    {
+      "Country": "Italy",
+      "City": "Naples",
+      "Start date": "2025-07-13",
+      "Count of days": 5,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Pizza tour", "Pompeii excursion"],
+      "Trip details": "Sample legendary pizza from generations-old pizzerias. Take a day trip to the ruins of Pompeii for ancient Roman insights. Revel in southern Italy’s vibrant street life and Mediterranean flair."
+    },
+    {
+      "Country": "Croatia",
+      "City": "Dubrovnik",
+      "Start date": "2025-07-14",
+      "Count of days": 6,
+      "Cost in EUR": 1400,
+      "Extra activities": ["City wall walk", "Island hopping"],
+      "Trip details": "Wander atop the historic walls for panoramic views of the Adriatic. Sail to nearby islands for tranquil beaches and clear waters. Enjoy fresh seafood and the fairy-tale setting of the Old Town."
+    },
+    {
+      "Country": "Turkey",
+      "City": "Antalya",
+      "Start date": "2025-07-15",
+      "Count of days": 5,
+      "Cost in EUR": 950,
+      "Extra activities": ["Beach day", "Boat tour"],
+      "Trip details": "Relax on the turquoise coast in the heart of the Turkish Riviera. Take a boat tour to discover hidden coves and waterfalls. Experience local bazaars and the flavors of Mediterranean-Turkish cuisine."
+    },
+    {
+      "Country": "Bulgaria",
+      "City": "Varna",
+      "Start date": "2025-07-16",
+      "Count of days": 4,
+      "Cost in EUR": 750,
+      "Extra activities": ["Beach day", "Nightlife tour"],
+      "Trip details": "Unwind on Bulgaria’s Black Sea beaches. Explore Varna’s vibrant nightlife along the coast. Sample traditional Balkan dishes and enjoy the city’s laid-back atmosphere."
+    },
+    {
+      "Country": "Romania",
+      "City": "Bucharest",
+      "Start date": "2025-07-17",
+      "Count of days": 5,
+      "Cost in EUR": 850,
+      "Extra activities": ["Palace of Parliament tour", "Old Town pub crawl"],
+      "Trip details": "Witness the world’s heaviest building and learn about Romania’s history. Socialize at lively bars in the Old Town’s historic streets. Experience a city that blends grand boulevards with quirky neighborhoods."
+    },
+    {
+      "Country": "UAE",
+      "City": "Dubai",
+      "Start date": "2025-07-18",
+      "Count of days": 3,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Desert safari", "Shopping spree"],
+      "Trip details": "Gaze at futuristic skyscrapers in a city renowned for luxury. Join a desert safari for camel rides and dune bashing. Indulge in world-class shopping and global dining experiences."
+    },
+    {
+      "Country": "Czech Republic",
+      "City": "Prague",
+      "Start date": "2025-07-19",
+      "Count of days": 4,
+      "Cost in EUR": 820,
+      "Extra activities": ["Prague Castle tour", "Beer tasting"],
+      "Trip details": "Explore the world’s largest ancient castle complex. Taste Czech beer in historic pubs. Meander through the Old Town Square, admiring the astronomical clock and Gothic spires."
+    },
+    {
+      "Country": "Hungary",
+      "City": "Budapest",
+      "Start date": "2025-07-20",
+      "Count of days": 4,
+      "Cost in EUR": 860,
+      "Extra activities": ["Thermal spa visit", "Danube river cruise"],
+      "Trip details": "Rejuvenate in Budapest’s famed thermal baths. Cruise the Danube for views of Buda Castle and the Parliament building. Experience ruin bars and hearty Hungarian dishes."
+    },
+    {
+      "Country": "Austria",
+      "City": "Vienna",
+      "Start date": "2025-07-21",
+      "Count of days": 5,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Opera visit", "Schnitzel tasting"],
+      "Trip details": "Attend a performance in one of the world’s premier opera houses. Try authentic Wiener Schnitzel at a historic eatery. Stroll the Ringstrasse for a glimpse of imperial grandeur."
+    },
+    {
+      "Country": "Poland",
+      "City": "Warsaw",
+      "Start date": "2025-07-22",
+      "Count of days": 3,
+      "Cost in EUR": 750,
+      "Extra activities": ["Old Town tour", "Museum of Polish History"],
+      "Trip details": "Witness the city’s remarkable post-war reconstruction in the Old Town. Learn about Polish heritage in modern, interactive museums. Enjoy lively squares and hearty Central European cuisine."
+    },
+    {
+      "Country": "Bosnia and Herzegovina",
+      "City": "Sarajevo",
+      "Start date": "2025-07-23",
+      "Count of days": 4,
+      "Cost in EUR": 680,
+      "Extra activities": ["Tunnel of Hope visit", "Cevapi tasting"],
+      "Trip details": "Understand Sarajevo’s recent history through the Tunnel Museum. Savor cevapi and other local specialties in the Old Town. Experience a tapestry of religions and cultures in one city."
+    },
+    {
+      "Country": "Netherlands",
+      "City": "Amsterdam",
+      "Start date": "2025-07-24",
+      "Count of days": 4,
+      "Cost in EUR": 920,
+      "Extra activities": ["Cycling tour", "Van Gogh Museum visit"],
+      "Trip details": "Pedal through picturesque neighborhoods along the canals. Discover the art world of Vincent van Gogh in a dedicated museum. Enjoy the city’s laid-back vibe, flower markets, and cozy cafes."
+    },
+    {
+      "Country": "Switzerland",
+      "City": "Zurich",
+      "Start date": "2025-07-25",
+      "Count of days": 3,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Lake Zurich cruise", "Chocolate factory visit"],
+      "Trip details": "Sail on pristine Lake Zurich for majestic alpine views. Delight in Swiss confections at a local chocolate producer. Wander the Old Town’s narrow lanes and discover hidden gems."
+    },
+    {
+      "Country": "Jordan",
+      "City": "Petra",
+      "Start date": "2025-07-26",
+      "Count of days": 3,
+      "Cost in EUR": 950,
+      "Extra activities": ["Guided archaeological tour", "Bedouin experience"],
+      "Trip details": "Uncover the ancient Nabatean city carved into rose-red cliffs. Learn about Bedouin traditions around a desert campfire. Marvel at the Treasury illuminated by candlelight on select evenings."
+    },
+    {
+      "Country": "Romania",
+      "City": "Cluj-Napoca",
+      "Start date": "2025-07-27",
+      "Count of days": 4,
+      "Cost in EUR": 780,
+      "Extra activities": ["Local festival", "Transylvanian countryside tour"],
+      "Trip details": "Immerse yourself in the city’s arts and music festivals. Visit traditional Transylvanian villages and rolling hills. Relish in a youthful vibe thanks to Cluj’s large student population."
+    },
+    {
+      "Country": "Cyprus",
+      "City": "Nicosia",
+      "Start date": "2025-07-28",
+      "Count of days": 5,
+      "Cost in EUR": 920,
+      "Extra activities": ["Cultural tour", "Local tavern night"],
+      "Trip details": "Experience Europe’s last divided capital by crossing the Green Line. Discover museums telling the island’s multifaceted past. Enjoy warm Cypriot hospitality and cuisine in lively tavern evenings."
+    },
+    {
+      "Country": "Croatia",
+      "City": "Zadar",
+      "Start date": "2025-07-29",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Sea Organ experience", "Island excursion"],
+      "Trip details": "Listen to the melodic Sea Organ playing nature’s music. Wander Roman ruins and Venetian walls in the historic center. Explore nearby islands for secluded beaches and clear waters."
+    },
+    {
+      "Country": "Spain",
+      "City": "Valencia",
+      "Start date": "2025-07-30",
+      "Count of days": 5,
+      "Cost in EUR": 990,
+      "Extra activities": ["Paella workshop", "City of Arts and Sciences visit"],
+      "Trip details": "Learn the secrets of authentic paella in its birthplace. Marvel at futuristic architecture in the City of Arts and Sciences. Balance city exploration with relaxed beach time along the coast."
+    },
+    {
+      "Country": "Italy",
+      "City": "Rome",
+      "Start date": "2025-07-31",
+      "Count of days": 5,
+      "Cost in EUR": 1400,
+      "Extra activities": ["Vatican tour", "Gelato tasting"],
+      "Trip details": "Explore the spiritual heart of Catholicism at St. Peter’s Basilica and the Vatican Museums. Wander Rome’s ancient ruins and Renaissance piazzas. Savor authentic gelato as you soak up la dolce vita."
+    },
+    {
+      "Country": "Egypt",
+      "City": "Hurghada",
+      "Start date": "2025-08-01",
+      "Count of days": 5,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Snorkeling", "Desert safari"],
+      "Trip details": "Dive into the Red Sea’s vibrant underwater world. Head inland for a desert safari showcasing unique landscapes. Enjoy sun-soaked beaches and a variety of water sports."
+    },
+    {
+      "Country": "Turkey",
+      "City": "Pamukkale",
+      "Start date": "2025-08-02",
+      "Count of days": 3,
+      "Cost in EUR": 850,
+      "Extra activities": ["Thermal pools", "Ancient Hierapolis tour"],
+      "Trip details": "Bathe in the pristine white travertine terraces. Discover the nearby ruins of Hierapolis overlooking the mineral springs. Appreciate the region’s geological wonders and Roman heritage."
+    },
+    {
+      "Country": "Italy",
+      "City": "Sicily",
+      "Start date": "2025-08-03",
+      "Count of days": 5,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Mount Etna excursion", "Street food tour"],
+      "Trip details": "Ascend Europe’s tallest active volcano for spectacular panoramas. Sample local favorites like arancini and cannoli in street markets. Experience Sicily’s distinct cultural tapestry and warm Mediterranean vibe."
+    },
+    {
+      "Country": "France",
+      "City": "Bordeaux",
+      "Start date": "2025-08-04",
+      "Count of days": 4,
+      "Cost in EUR": 1100,
+      "Extra activities": ["Wine château tour", "Riverside walk"],
+      "Trip details": "Taste world-class wines at prestigious châteaux in the region. Stroll the elegant 18th-century streets and riverside quays. Dine on gourmet French cuisine pairing perfectly with local vintages."
+    },
+    {
+      "Country": "United Arab Emirates",
+      "City": "Abu Dhabi",
+      "Start date": "2025-08-05",
+      "Count of days": 3,
+      "Cost in EUR": 1150,
+      "Extra activities": ["Sheikh Zayed Mosque tour", "Desert safari"],
+      "Trip details": "Admire the stunning marble architecture and intricate details of the Grand Mosque. Experience desert life with camel rides and sandboarding. Explore contemporary art and culture in the city’s museums."
+    },
+    {
+      "Country": "Qatar",
+      "City": "Doha",
+      "Start date": "2025-08-06",
+      "Count of days": 4,
+      "Cost in EUR": 1200,
+      "Extra activities": ["Souq Waqif visit", "Museum of Islamic Art"],
+      "Trip details": "Shop traditional goods and spices in the lively Souq Waqif. View curated masterpieces in the iconic Museum of Islamic Art. Enjoy dhow boat rides and modern cityscapes along the Corniche."
+    },
+    {
+      "Country": "Oman",
+      "City": "Salalah",
+      "Start date": "2025-08-07",
+      "Count of days": 5,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Frankincense trail tour", "Beach day"],
+      "Trip details": "Experience Oman’s lush southern region during the khareef (monsoon). Discover ancient caravan routes linked to frankincense trade. Relax on pristine beaches with emerald waters."
+    },
+    {
+      "Country": "Spain",
+      "City": "Granada",
+      "Start date": "2025-08-08",
+      "Count of days": 3,
+      "Cost in EUR": 900,
+      "Extra activities": ["Alhambra tour", "Tapas crawl"],
+      "Trip details": "Explore the ornate palaces and gardens of the Alhambra. Enjoy a tapas crawl through narrow lanes of the Albaicín. Immerse yourself in the fusion of Moorish and Spanish cultures."
+    },
+    {
+      "Country": "Greece",
+      "City": "Mykonos",
+      "Start date": "2025-08-09",
+      "Count of days": 4,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Beach party", "Boutique shopping"],
+      "Trip details": "Revel in Mykonos’ renowned nightlife and trendy beach clubs. Discover stylish boutiques tucked away in whitewashed alleys. Take a day excursion to Delos, the mythical birthplace of Apollo."
+    },
+    {
+      "Country": "Germany",
+      "City": "Berlin",
+      "Start date": "2025-08-10",
+      "Count of days": 5,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Berlin Wall memorial", "Street art tour"],
+      "Trip details": "Learn about Berlin’s tumultuous past at Wall memorial sites. Admire vibrant street art in neighborhoods like Kreuzberg. Embrace a multicultural food scene and lively nightlife."
+    },
+    {
+      "Country": "Spain",
+      "City": "Seville",
+      "Start date": "2025-08-11",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["Cathedral tour", "River cruise"],
+      "Trip details": "Climb the Giralda for panoramic city views. Float down the Guadalquivir River, spotting Moorish architecture along the banks. Indulge in local tapas and flamenco rhythms."
+    },
+    {
+      "Country": "Italy",
+      "City": "Florence",
+      "Start date": "2025-08-12",
+      "Count of days": 3,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Uffizi Gallery visit", "Gelato tasting"],
+      "Trip details": "Admire Renaissance masterpieces, including Botticelli’s works. Learn about Tuscan culinary heritage and try artisan gelato. Enjoy Florence’s timeless beauty through its museums and piazzas."
+    },
+    {
+      "Country": "Portugal",
+      "City": "Coimbra",
+      "Start date": "2025-08-13",
+      "Count of days": 4,
+      "Cost in EUR": 750,
+      "Extra activities": ["University library tour", "Monastery visit"],
+      "Trip details": "Step into a centuries-old library brimming with rare books. Tour medieval monasteries reflecting Portugal’s deep history. Experience local student traditions in a captivating academic hub."
+    },
+    {
+      "Country": "Egypt",
+      "City": "Sharm El Sheikh",
+      "Start date": "2025-08-14",
+      "Count of days": 5,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Scuba diving", "Bedouin dinner"],
+      "Trip details": "Explore the coral reefs teeming with marine life. Enjoy a traditional Bedouin dinner under the stars in the desert. Relax in this Red Sea paradise known for its resorts and nightlife."
+    },
+    {
+      "Country": "Turkey",
+      "City": "Bodrum",
+      "Start date": "2025-08-15",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["Beach club visit", "Boat excursion"],
+      "Trip details": "Soak up the sun in Bodrum’s chic beach clubs. Sail to nearby coves for swimming and snorkeling. Explore ancient ruins and savor Aegean cuisine in seaside taverns."
+    },
+    {
+      "Country": "Saudi Arabia",
+      "City": "Riyadh",
+      "Start date": "2025-08-16",
+      "Count of days": 3,
+      "Cost in EUR": 1150,
+      "Extra activities": ["National Museum visit", "Desert safari"],
+      "Trip details": "Discover the kingdom’s heritage at the National Museum. Experience Arabian desert life with traditional feasts and camel rides. Mix modern skyscrapers with cultural traditions in this evolving capital."
+    },
+    {
+      "Country": "Morocco",
+      "City": "Fez",
+      "Start date": "2025-08-17",
+      "Count of days": 4,
+      "Cost in EUR": 800,
+      "Extra activities": ["Tannery visit", "Medina exploration"],
+      "Trip details": "Wander the winding alleyways of Fez’s UNESCO-listed medina. Observe centuries-old leather tanning at Chouara Tannery. Revel in the city’s historic atmosphere and artisanal crafts."
+    },
+    {
+      "Country": "Germany",
+      "City": "Cologne",
+      "Start date": "2025-08-18",
+      "Count of days": 3,
+      "Cost in EUR": 750,
+      "Extra activities": ["Cathedral climb", "Rhine promenade walk"],
+      "Trip details": "Ascend the towers of Cologne Cathedral for panoramic city views. Stroll along the Rhine for a lively atmosphere. Enjoy local Kölsch beer and admire the city’s medieval heart."
+    },
+    {
+      "Country": "Jordan",
+      "City": "Amman",
+      "Start date": "2025-08-19",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["Citadel visit", "Local market tour"],
+      "Trip details": "Admire panoramic vistas from the ancient Amman Citadel. Sample Jordanian street food in bustling markets. Balance modern city life with the capital’s historical charm."
+    },
+    {
+      "Country": "Malta",
+      "City": "Valletta",
+      "Start date": "2025-08-20",
+      "Count of days": 5,
+      "Cost in EUR": 1000,
+      "Extra activities": ["Harbor cruise", "Nightlife tour"],
+      "Trip details": "Sail around Valletta’s harbor to see fortresses up close. Discover vibrant nightlife in hidden bars and waterfront clubs. Experience the island’s Mediterranean allure and rich heritage."
+    },
+    {
+      "Country": "Greece",
+      "City": "Crete",
+      "Start date": "2025-08-21",
+      "Count of days": 6,
+      "Cost in EUR": 1300,
+      "Extra activities": ["Beach day", "Local winery tour"],
+      "Trip details": "Relax on Crete’s famous sandy beaches and turquoise waters. Explore the island’s wine scene with tastings at family-run estates. Enjoy ancient Minoan sites and hearty Greek island cuisine."
+    },
+    {
+      "Country": "Israel",
+      "City": "Haifa",
+      "Start date": "2025-08-22",
+      "Count of days": 3,
+      "Cost in EUR": 900,
+      "Extra activities": ["Bahá’í Gardens tour", "Coastal walk"],
+      "Trip details": "Marvel at the terraced Bahá’í Gardens descending Mount Carmel. Stroll the scenic coastline overlooking the Mediterranean. Discover Haifa’s multi-cultural neighborhoods and diverse dining options."
+    },
+    {
+      "Country": "Germany",
+      "City": "Dresden",
+      "Start date": "2025-08-23",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Art gallery tour", "River Elbe walk"],
+      "Trip details": "Visit the Old Masters Picture Gallery in the grand Zwinger palace. Admire the rebuilt Frauenkirche symbolizing Dresden’s resilience. Relax by the Elbe’s grassy meadows for a picturesque picnic."
+    },
+    {
+      "Country": "Belgium",
+      "City": "Bruges",
+      "Start date": "2025-08-24",
+      "Count of days": 3,
+      "Cost in EUR": 750,
+      "Extra activities": ["Canal cruise", "Brewery visit"],
+      "Trip details": "Glide along romantic canals flanked by medieval houses. Taste Belgian ales at a local brewery steeped in tradition. Savor chocolates and waffles in the city’s cozy squares."
+    },
+    {
+      "Country": "Italy",
+      "City": "Sicily",
+      "Start date": "2025-08-25",
+      "Count of days": 5,
+      "Cost in EUR": 1250,
+      "Extra activities": ["Mount Etna trek", "Coastal tour"],
+      "Trip details": "Scale the slopes of Europe’s most active volcano for breathtaking views. Explore the island’s coastal villages and crystal-clear waters. Indulge in Sicilian street food with Arab-Norman influences."
+    },
+    {
+      "Country": "Austria",
+      "City": "Innsbruck",
+      "Start date": "2025-08-26",
+      "Count of days": 4,
+      "Cost in EUR": 900,
+      "Extra activities": ["Cable car ride", "Old Town visit"],
+      "Trip details": "Ascend mountain peaks by cable car for panoramic alpine scenery. Explore the Golden Roof and medieval lanes in the heart of Innsbruck. Relish Tyrolean delicacies and fresh mountain air."
+    },
+    {
+      "Country": "Hungary",
+      "City": "Budapest",
+      "Start date": "2025-08-27",
+      "Count of days": 5,
+      "Cost in EUR": 950,
+      "Extra activities": ["Thermal bath visit", "Ruin bar tour"],
+      "Trip details": "Experience local spa culture in historic Turkish baths. Explore the city’s unique ruin bars set in abandoned buildings. Enjoy a nighttime walk along the Danube with Parliament lit up."
+    },
+    {
+      "Country": "Morocco",
+      "City": "Agadir",
+      "Start date": "2025-08-28",
+      "Count of days": 4,
+      "Cost in EUR": 850,
+      "Extra activities": ["Beach day", "Surf lesson"],
+      "Trip details": "Catch waves along Agadir’s sunny coastline with a beginner’s surf class. Relax on long sandy beaches perfect for a seaside retreat. Sample fresh seafood and Moroccan dishes by the waterfront."
+    },
+    {
+      "Country": "Italy",
+      "City": "Pisa",
+      "Start date": "2025-08-29",
+      "Count of days": 3,
+      "Cost in EUR": 800,
+      "Extra activities": ["Leaning Tower visit", "River walk"],
+      "Trip details": "Take in the iconic Leaning Tower in the Piazza dei Miracoli. Enjoy a leisurely walk along the Arno River. Experience the city’s quaint charm and Tuscan hospitality."
+    },
+    {
+      "Country": "Spain",
+      "City": "Madrid",
+      "Start date": "2025-08-30",
+      "Count of days": 4,
+      "Cost in EUR": 950,
+      "Extra activities": ["Prado Museum visit", "Tapas crawl"],
+      "Trip details": "Admire masterpieces from Velázquez to Goya at the Prado. Indulge in a tapas crawl across traditional bars in La Latina. Stroll through grand boulevards and expansive city parks."
+    },
+    {
+      "Country": "Slovakia",
+      "City": "Bratislava",
+      "Start date": "2025-08-31",
+      "Count of days": 3,
+      "Cost in EUR": 680,
+      "Extra activities": ["Castle tour", "Danube walk"],
+      "Trip details": "Explore the centuries-old Bratislava Castle perched above the city. Walk the Danube promenade for scenic river views. Enjoy local beers and Slovak cuisine in cozy downtown spots."
+    },
+    {
+      "Country": "Turkey",
+      "City": "Istanbul",
+      "Start date": "2025-09-01",
+      "Count of days": 5,
+      "Cost in EUR": 1050,
+      "Extra activities": ["Hagia Sophia tour", "Bosphorus cruise"],
+      "Trip details": "Straddle two continents in the cultural mosaic of Istanbul. Visit the iconic Hagia Sophia, a symbol of the city’s layered history. Sail the Bosphorus for mesmerizing skyline views and waterside palaces."
+    }
+  ]
+  
