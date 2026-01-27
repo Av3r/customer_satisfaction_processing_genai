@@ -1,0 +1,13 @@
+pandas
+numpy
+spacy
+langchain
+langchain-core
+langchain-community
+langchain-openai
+python-dotenv
+tqdm
+scikit-learn
+matplotlib
+seaborn
+pydantic
