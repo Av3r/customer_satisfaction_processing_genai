@@ -15,6 +15,7 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from pydantic import BaseModel, Field
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.utils import deprecated
 from tqdm import tqdm
 
 load_dotenv()
@@ -92,13 +93,17 @@ class ReviewAnalysis(BaseModel):
         description="The sentiment of the review. Must be explicitly 'positive', 'negative', or 'neutral'.")
     summary: str = Field(description="One sentence summary of the review")
 
+    locations: List[str] = Field(
+        description="List of cities or countries mentioned in the review. Normalize names (e.g., 'NYC' -> 'New York'). If none, return empty list."
+    )
 
 parser = PydanticOutputParser(pydantic_object=ReviewAnalysis)
 
 PROMPT_TEMPLATE = """
 You are an expert Customer Experience AI. Analyze the following hotel review.
-Strictly categorize sentiment as 'positive', 'negative', or 'neutral'. 
-Do NOT use 'mixed'. If there are pros and cons, decide which prevails or use 'neutral'.
+1. Strictly categorize sentiment as 'positive', 'negative', or 'neutral'.
+2. Extract any specific city or country names mentioned as travel destinations.
+3. Ignore adjectives like 'French fries' or 'Italian style'. Only extract actual locations.
 
 Review: "{review_text}"
 
@@ -113,7 +118,7 @@ prompt = PromptTemplate(
 
 chain = prompt | llm | parser
 
-
+@deprecated #Use LLM to extract location instead
 def extract_ner_locations(text: str) -> List[str]:
     """Extracts unique locations (GPE) using SpaCy."""
     doc = nlp(text)
@@ -171,11 +176,12 @@ def find_best_3_trips(review_text: str, ner_locs: List[str], trips_df: pd.DataFr
 
 def analyze_single_review(text: str, score: int, review_id: str, trips_df: pd.DataFrame) -> Dict[str, Any]:
     """Analysis of a single review."""
-
-    # 1. AI analysis
     try:
         llm_res = chain.invoke({"review_text": text})
-        ner_locs = extract_ner_locations(text)
+
+        # --- NEW: Get locations directly from LLM ---
+        ner_locs = llm_res.locations
+        # --------------------------------------------
 
         sentiment_str = llm_res.sentiment.value
     except Exception as e:
@@ -355,6 +361,6 @@ if __name__ == "__main__":
     # One-time initialization
     trips_df = prepare_trips_engine('data/trips_data.json')
 
-    # run_batch_pipeline(trips_df)  # ,  limit = 100)
+    run_batch_pipeline(trips_df, 20)  # ,  limit = 100)
 
-    run_manual_demo(trips_df)
+    # run_manual_demo(trips_df)
