@@ -123,29 +123,32 @@ with tabs[1]:
                     txt = item.get('review', '')
                     scr = item.get('customer_satisfaction_score', 3)
 
-                    # --- FIX: ROBUST NORMALIZATION ---
-                    # 1. Get raw value, force string, lowercase, and strip spaces
+                    # 1. Normalize Ground Truth (y_true)
                     raw_sent = str(item.get('survey_sentiment', 'unknown')).lower().strip()
-
-                    # 2. Map variations if necessary (optional but safe)
-                    if raw_sent in ['positive', 'pos']:
-                        true_sent = 'positive'
-                    elif raw_sent in ['negative', 'neg']:
-                        true_sent = 'negative'
-                    elif raw_sent in ['neutral', 'neu']:
-                        true_sent = 'neutral'
+                    if raw_sent in ['positive', 'negative', 'neutral']:
+                        true_sent = raw_sent
                     else:
                         true_sent = 'unknown'
 
-                    # RUN LOGIC
+                    # 2. Run AI Logic
                     pred = assistant.analyze_review(txt, scr)
+
+                    # 3. Normalize Prediction (y_pred) - THE FIX
+                    # We extract the string value from the Enum (e.g., "positive")
+                    # If it's already a string, .value might fail, so we use a safe approach:
+                    pred_enum = pred['sentiment_detected']
+
+                    if hasattr(pred_enum, 'value'):
+                        pred_str = pred_enum.value  # Extracts "positive" from SentimentEnum.POSITIVE
+                    else:
+                        pred_str = str(pred_enum).lower()  # Fallback
 
                     # Store Data
                     row = {
                         "id": r_id,
                         "score": scr,
                         "true_sentiment": true_sent,
-                        "pred_sentiment": str(pred['sentiment_detected']).lower(),  # Force lower
+                        "pred_sentiment": pred_str,  # Now strictly "positive", "negative", or "neutral"
                         "action": pred['action'],
                         "match_reason": pred.get('Rec_1_Reason', "N/A")
                     }
@@ -166,6 +169,8 @@ with tabs[1]:
                     y_true = valid_df['true_sentiment']
                     y_pred = valid_df['pred_sentiment']
                     labels = ['positive', 'negative', 'neutral']
+
+                    print(y_true, y_pred)
 
                     # Metrics
                     acc = accuracy_score(y_true, y_pred)
@@ -190,21 +195,109 @@ with tabs[1]:
                 else:
                     st.error("⚠️ All ground truth labels are 'unknown'. Please check your JSON file content.")
                     st.write("First 5 raw sentiments found in file:",
-                             [str(x.get('survey_sentiment')) for x in data[:5]])
+                             [str(x.get('survey_sentiment')) for x in data[:10]])
 
+# --- TAB 3: INPUT DATA INFO ---
 # --- TAB 3: INPUT DATA INFO ---
 with tabs[2]:
     st.header("📂 Input Data Analysis")
+
     if os.path.exists(reviews_file):
         with open(reviews_file, 'r', encoding='utf-8') as f:
             raw_data = json.load(f)
+
         df_raw = pd.DataFrame(raw_data)
 
-        c1, c2 = st.columns(2)
-        c1.metric("Total Reviews", len(df_raw))
-        c2.metric("Avg Score", f"{df_raw['customer_satisfaction_score'].mean():.2f}")
+        # --- 1. HIGH-LEVEL KPIs ---
+        st.subheader("📊 Dataset Overview")
+        kpi1, kpi2, kpi3, kpi4 = st.columns(4)
 
-        st.subheader("Score Distribution")
-        fig_hist, ax_hist = plt.subplots(figsize=(8, 4))
-        sns.histplot(df_raw['customer_satisfaction_score'], bins=5, kde=False, color='teal', ax=ax_hist)
-        st.pyplot(fig_hist)
+        kpi1.metric("Total Reviews", len(df_raw))
+        kpi2.metric("Avg. Satisfaction Score", f"{df_raw['customer_satisfaction_score'].mean():.2f} / 5")
+
+        # Calculate Sentiment % (if available)
+        if 'survey_sentiment' in df_raw.columns:
+            pos_count = df_raw['survey_sentiment'].apply(
+                lambda x: 1 if str(x).lower().strip() in ['positive', 'pos'] else 0).sum()
+            kpi3.metric("Positive Sentiment %", f"{(pos_count / len(df_raw)) * 100:.1f}%")
+
+        # Avg Word Count
+        df_raw['word_count'] = df_raw['review'].apply(lambda x: len(str(x).split()))
+        kpi4.metric("Avg. Word Count", f"{df_raw['word_count'].mean():.0f} words")
+
+        st.markdown("---")
+
+        # --- 2. DISTRIBUTIONS (Row 1) ---
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.subheader("Customer Score Distribution")
+            fig_hist, ax = plt.subplots(figsize=(6, 4))
+            sns.countplot(x='customer_satisfaction_score', data=df_raw, palette='viridis', ax=ax)
+            ax.set_title("Count of Reviews by Score (1-5)")
+            ax.set_ylabel("Number of Reviews")
+            st.pyplot(fig_hist)
+
+        with col2:
+            st.subheader("Ground Truth Sentiment Split")
+            if 'survey_sentiment' in df_raw.columns:
+                # Normalize labels for plotting
+                df_raw['clean_sentiment'] = df_raw['survey_sentiment'].apply(lambda x: str(x).lower().strip())
+                sentiment_counts = df_raw['clean_sentiment'].value_counts()
+
+                fig_pie, ax = plt.subplots(figsize=(6, 4))
+                ax.pie(sentiment_counts, labels=sentiment_counts.index, autopct='%1.1f%%', startangle=140,
+                       colors=sns.color_palette('pastel'))
+                ax.set_title("Sentiment Labels in Dataset")
+                st.pyplot(fig_pie)
+            else:
+                st.info("No 'survey_sentiment' column found in JSON.")
+
+        # --- 3. DATA QUALITY CHECK (Row 2) ---
+        st.subheader("🔍 Data Quality: Score vs. Sentiment Consistency")
+        st.markdown("Are high scores (5) actually labeled 'Positive'? This heatmap reveals dirty data.")
+
+        if 'clean_sentiment' in df_raw.columns:
+            # Create a cross-tabulation (Confusion Matrix of Ground Truths)
+            consistency_matrix = pd.crosstab(df_raw['customer_satisfaction_score'], df_raw['clean_sentiment'])
+
+            fig_heat, ax = plt.subplots(figsize=(8, 3))
+            sns.heatmap(consistency_matrix, annot=True, fmt='d', cmap='Reds', ax=ax)
+            ax.set_title("Heatmap: Score (Rows) vs. Sentiment Label (Cols)")
+            st.pyplot(fig_heat)
+
+        st.markdown("---")
+
+        # --- 4. TEXT ANALYSIS (Row 3) ---
+        col3, col4 = st.columns(2)
+
+        with col3:
+            st.subheader("Review Length Distribution")
+            fig_len, ax = plt.subplots(figsize=(6, 4))
+            sns.histplot(df_raw['word_count'], bins=20, kde=True, color='teal', ax=ax)
+            ax.set_title("Distribution of Review Lengths (Word Count)")
+            st.pyplot(fig_len)
+
+        with col4:
+            st.subheader("Top 15 Frequent Words")
+            # Simple manual stopword removal to avoid importing NLTK just for this
+            stopwords = set(
+                ['the', 'and', 'to', 'was', 'a', 'of', 'in', 'for', 'i', 'it', 'we', 'is', 'very', 'with', 'my', 'that',
+                 'but', 'on', 'at', 'had', 'room', 'hotel', 'this'])
+
+            all_words = " ".join(df_raw['review'].astype(str)).lower().split()
+            filtered_words = [w for w in all_words if w.isalpha() and w not in stopwords]
+
+            from collections import Counter
+
+            common_words = Counter(filtered_words).most_common(15)
+
+            words_df = pd.DataFrame(common_words, columns=['Word', 'Count'])
+
+            fig_bar, ax = plt.subplots(figsize=(6, 4))
+            sns.barplot(x='Count', y='Word', data=words_df, palette='coolwarm', ax=ax)
+            ax.set_title("Most Common Words (Excluding Stopwords)")
+            st.pyplot(fig_bar)
+
+    else:
+        st.error("Data file not found. Please ensure `data/customer_surveys_hotels_1k.json` exists.")
