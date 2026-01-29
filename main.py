@@ -51,6 +51,7 @@ def get_embedding(text: str) -> List[float]:
 def prepare_trips_engine(trips_file: str) -> pd.DataFrame:
     """Loads trips, normalizes data and creates a vector index"""
 
+    global df
     try:
         df = pd.read_json(trips_file)
     except ValueError:
@@ -315,13 +316,27 @@ def run_manual_demo(trips_df):
     while True:
         text = input("\n📝 Review: ")
         if text.strip().lower() == 'exit': break
-        try:
-            score = int(input("⭐ Rating (1-5): "))
-        except:
-            score = 3
+
+        # --- VALIDATION LOOP START ---
+        while True:
+            user_input = input("⭐ Rating (1-5): ")
+
+            # Check if input is a valid integer
+            try:
+                score = int(user_input)
+                # Check if it is within the 1-5 range
+                if 1 <= score <= 5:
+                    break
+                else:
+                    print("   ⚠️ Please enter a number between 1 and 5.")
+            except ValueError:
+                print("   ⚠️ Invalid input. Please enter a number.")
+        # --- VALIDATION LOOP END ---
 
         print("⏳ Analyzing...")
-        res = analyze_single_review(text, score, "manual_demo_id", trips_df)
+
+        # Remember to include the dummy ID "manual_test" here!
+        res = analyze_single_review(text, score, "manual_test", trips_df)
 
         print(f"\n--- RESULT ({res['action']}) ---")
         print(f"Sentiment: {res['pred_sentiment']}")
@@ -330,7 +345,8 @@ def run_manual_demo(trips_df):
         if res['action'] == "RECOMMENDATION":
             for i in range(1, 4):
                 if f"Rec_{i}_City" in res:
-                    print(f"   {i}. {res[f'Rec_{i}_City']} ({res[f'Rec_{i}_Reason']}) -> {res[f'Rec_{i}_Activities']}")
+                    print(
+                        f"   {i}. {res[f'Rec_{i}_City']} ({res[f'Rec_{i}_Reason']}) -> {res[f'Rec_{i}_Activities']}")
         else:
             print(f"🎟️ Discount code: {res.get('Discount_Code')}")
 
