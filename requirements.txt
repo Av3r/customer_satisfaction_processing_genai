@@ -12,3 +12,4 @@ matplotlib
 seaborn
 pydantic
 faiss-cpu
+streamlit

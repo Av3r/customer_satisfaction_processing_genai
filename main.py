@@ -239,7 +239,7 @@ def main():
         # BATCH RUN
         INPUT_FILE = 'data/customer_surveys_hotels_1k.json'
         OUTPUT_FILE = 'output/final_results.csv'
-        manager.run_batch(INPUT_FILE, OUTPUT_FILE, limit=50)  # Set limit=None for full run
+        manager.run_batch(INPUT_FILE, OUTPUT_FILE, limit=None)  # Set limit=None for full run
 
     elif choice == "2":
         # MANUAL DEMO
