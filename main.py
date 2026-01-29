@@ -1,21 +1,21 @@
-import os
 import json
-import pandas as pd
-import spacy
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns  
-from typing import List, Dict, Any, Tuple
+import os
 from enum import Enum
-from dotenv import load_dotenv
-from tqdm import tqdm
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.metrics import confusion_matrix
+from typing import List, Dict, Any, Tuple
 
-from langchain_core.prompts import PromptTemplate
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import spacy
+from dotenv import load_dotenv
 from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from pydantic import BaseModel, Field
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics.pairwise import cosine_similarity
+from tqdm import tqdm
 
 load_dotenv()
 
@@ -41,16 +41,16 @@ except OSError:
     nlp = spacy.load("en_core_web_md")
 
 
-
 # STEP 2: Data preparation and RAG indexing
 def get_embedding(text: str) -> List[float]:
     """Create embeddings for the text"""
     text = text.replace("\n", " ")
     return embeddings_model.embed_query(text)
 
+
 def prepare_trips_engine(trips_file: str) -> pd.DataFrame:
     """Loads trips, normalizes data and creates a vector index"""
-    
+
     try:
         df = pd.read_json(trips_file)
     except ValueError:
@@ -66,13 +66,13 @@ def prepare_trips_engine(trips_file: str) -> pd.DataFrame:
                   f"Activities: {', '.join(x['Extra activities'])}. "
                   f"Details: {x['Trip details']}", axis=1
     )
-        
+
     # RAG indexing
     embeddings = []
     # We use tqdm for the progress bar
     for text in tqdm(df['rag_content'], desc="Creating vectors (Embeddings)"):
         embeddings.append(get_embedding(text))
-    
+
     df['vector'] = list(embeddings)
     return df
 
@@ -85,9 +85,12 @@ class SentimentEnum(str, Enum):
     NEGATIVE = "negative"
     NEUTRAL = "neutral"
 
+
 class ReviewAnalysis(BaseModel):
-    sentiment: SentimentEnum = Field(description="The sentiment of the review. Must be explicitly 'positive', 'negative', or 'neutral'.")
+    sentiment: SentimentEnum = Field(
+        description="The sentiment of the review. Must be explicitly 'positive', 'negative', or 'neutral'.")
     summary: str = Field(description="One sentence summary of the review")
+
 
 parser = PydanticOutputParser(pydantic_object=ReviewAnalysis)
 
@@ -115,10 +118,8 @@ def extract_ner_locations(text: str) -> List[str]:
     doc = nlp(text)
     return list(set([ent.text.strip() for ent in doc.ents if ent.label_ == "GPE"]))
 
-# STEP 4: NER utilities
 
-
-# STEP 5: Hybrid matching (NER + RAG)
+# STEP 4: Hybrid matching (NER + RAG)
 def find_best_3_trips(review_text: str, ner_locs: List[str], trips_df: pd.DataFrame) -> List[Tuple[Any, str]]:
     """
     Hybrid algorithm within recommendation pipeline:
@@ -127,50 +128,49 @@ def find_best_3_trips(review_text: str, ner_locs: List[str], trips_df: pd.DataFr
     """
     recommendations = []
     seen_indices = set()
-    
+
     # Phase 1: NER (Hard Filter)
     for loc in ner_locs:
         loc_lower = loc.lower()
         matches = trips_df[
-            (trips_df['City_lower'] == loc_lower) | 
+            (trips_df['City_lower'] == loc_lower) |
             (trips_df['Country_lower'] == loc_lower)
-        ]
-        
+            ]
+
         for idx, row in matches.iterrows():
             if idx not in seen_indices:
                 recommendations.append((row, "NER_Location_Match"))
                 seen_indices.add(idx)
-    
+
     # If we already have 3 recommendations from NER, return them
     if len(recommendations) >= 3:
         return recommendations[:3]
-        
+
     # Phase 2: RAG semantic search (fallback / complement to NER)
     # Create query embedding for the review
     review_vector = np.array(embeddings_model.embed_query(review_text)).reshape(1, -1)
-    
+
     # Trips vectors matrix
     trips_matrix = np.array(trips_df['vector'].tolist())
-    
+
     # Cosine similarity
     scores = cosine_similarity(review_vector, trips_matrix)[0]
     best_indices = np.argsort(scores)[::-1]
-    
+
     for idx in best_indices:
         if len(recommendations) >= 3: break
         if idx not in seen_indices:
             recommendations.append((trips_df.iloc[idx], "RAG_Activity_Match"))
             seen_indices.add(idx)
-            
-    return recommendations[:3]
 
+    return recommendations[:3]
 
 
 # ---  MAIN LOGIC (SINGLE REVIEW) ---
 
 def analyze_single_review(text: str, score: int, review_id: str, trips_df: pd.DataFrame) -> Dict[str, Any]:
     """Analysis of a single review."""
-    
+
     # 1. AI analysis
     try:
         llm_res = chain.invoke({"review_text": text})
@@ -188,14 +188,14 @@ def analyze_single_review(text: str, score: int, review_id: str, trips_df: pd.Da
         final_sentiment = "positive"
     else:
         final_sentiment = sentiment_str
-    
+
     # 3. Decision
-    #action = "DISCOUNT" if final_sentiment in ["negative", "neutral"] else "RECOMMENDATION"
+    # action = "DISCOUNT" if final_sentiment in ["negative", "neutral"] else "RECOMMENDATION"
     if final_sentiment == "positive":
         action = "RECOMMENDATION"
     else:
         action = "DISCOUNT"
-    
+
     result = {
         "review_id": review_id,
         "review_snippet": text[:50].replace("\n", " ") + "...",
@@ -205,12 +205,12 @@ def analyze_single_review(text: str, score: int, review_id: str, trips_df: pd.Da
         "summary": llm_res.summary,
         "ner_locations": ", ".join(ner_locs)
     }
-    
+
     # 4. Execute action
     if action == "RECOMMENDATION":
         recs = find_best_3_trips(text, ner_locs, trips_df)
         for i, (trip, reason) in enumerate(recs):
-            prefix = f"Rec_{i+1}"
+            prefix = f"Rec_{i + 1}"
             result[f"{prefix}_Ref_ID"] = trip['trip_ref_id']
             result[f"{prefix}_City"] = trip['City']
             result[f"{prefix}_Country"] = trip['Country']
@@ -218,8 +218,9 @@ def analyze_single_review(text: str, score: int, review_id: str, trips_df: pd.Da
             result[f"{prefix}_Activities"] = ", ".join(trip['Extra activities'])
     else:
         result["Discount_Code"] = "SORRY_2025"
-        
+
     return result
+
 
 # --- EVALUATION AND VISUALIZATION ---
 
@@ -230,7 +231,7 @@ def visualize_results(csv_path):
 
     os.makedirs('output', exist_ok=True)
     sns.set_style("whitegrid")
-    
+
     # Confusion matrix
     if 'true_sentiment' in df.columns:
         valid = df[df['true_sentiment'] != 'unknown']
@@ -249,7 +250,7 @@ def visualize_results(csv_path):
     for col in ['Rec_1_Reason', 'Rec_2_Reason', 'Rec_3_Reason']:
         if col in df.columns:
             reasons.extend(df[col].dropna().tolist())
-    
+
     if reasons:
         plt.figure(figsize=(8, 5))
         sns.countplot(y=reasons, palette='viridis')
@@ -258,14 +259,15 @@ def visualize_results(csv_path):
         plt.savefig('output/reasons_distribution.png')
         print("📈 Saved: output/reasons_distribution.png")
 
+
 # --- BATCH PROCESS ---
 
 def run_batch_pipeline(trips_df, limit=None):
     INPUT_FILE = 'data/customer_surveys_hotels_1k.json'
     OUTPUT_FILE = 'output/final_results.csv'
-    
+
     print(f"\nStarting processing (Limit: {limit})...")
-    
+
     try:
         with open(INPUT_FILE, 'r', encoding='utf-8') as f:
             surveys = json.load(f)
@@ -275,53 +277,56 @@ def run_batch_pipeline(trips_df, limit=None):
     except json.JSONDecodeError:
         print(f"Error: File {INPUT_FILE} is not valid JSON.")
         return
-    
+
     data = surveys[:limit] if limit else surveys
     results = []
-    
+
     for item in tqdm(data):
         # Safely retrieve data (using .get to guard against missing keys)
         r_id = item.get('id', 'unknown_id')
         text = item.get('review', "")
         score = item.get('customer_satisfaction_score', 3)
         true_sent = item.get('survey_sentiment', 'unknown')
-        
+
         # Analysis
         res = analyze_single_review(text, score, r_id, trips_df)
-        
+
         # Add ground truth
         res['true_sentiment'] = true_sent
         if res['true_sentiment'] != 'unknown':
             res['sentiment_match'] = (res['true_sentiment'] == res['pred_sentiment'])
         results.append(res)
-        
+
     df_out = pd.DataFrame(results)
     # When saving, enforce utf-8 encoding
-    df_out.to_csv(OUTPUT_FILE, index=False, encoding='utf-8') 
+    df_out.to_csv(OUTPUT_FILE, index=False, encoding='utf-8')
     print(f"💾 Saved results: {OUTPUT_FILE}")
-    
+
     # Quick metric
     if 'sentiment_match' in df_out.columns:
         acc = df_out['sentiment_match'].mean() * 100
         print(f"📊 Accuracy: {acc:.2f}%")
-        
+
     visualize_results(OUTPUT_FILE)
+
 
 def run_manual_demo(trips_df):
     print("\n💡 DEMO MODE (type 'exit' to quit)")
     while True:
         text = input("\n📝 Review: ")
         if text.strip().lower() == 'exit': break
-        try: score = int(input("⭐ Rating (1-5): "))
-        except: score = 3
-        
+        try:
+            score = int(input("⭐ Rating (1-5): "))
+        except:
+            score = 3
+
         print("⏳ Analyzing...")
-        res = analyze_single_review(text, score, trips_df)
-        
+        res = analyze_single_review(text, score, "manual_demo_id", trips_df)
+
         print(f"\n--- RESULT ({res['action']}) ---")
         print(f"Sentiment: {res['pred_sentiment']}")
         print(f"Summary: {res['summary']}")
-        
+
         if res['action'] == "RECOMMENDATION":
             for i in range(1, 4):
                 if f"Rec_{i}_City" in res:
@@ -329,11 +334,11 @@ def run_manual_demo(trips_df):
         else:
             print(f"🎟️ Discount code: {res.get('Discount_Code')}")
 
+
 if __name__ == "__main__":
     # One-time initialization
     trips_df = prepare_trips_engine('data/trips_data.json')
 
-    run_batch_pipeline(trips_df)#,  limit = 100)
-    
-    #run_manual_demo(trips_df)
+    # run_batch_pipeline(trips_df)  # ,  limit = 100)
 
+    run_manual_demo(trips_df)

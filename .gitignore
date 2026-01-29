@@ -215,5 +215,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+# intellij
+.idea/
 
 output/old_outputs/
