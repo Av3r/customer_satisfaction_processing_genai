@@ -58,7 +58,7 @@ st.markdown("""
 3.  **PipelineManager:** Orchestrates the flow and applies score-based guardrails.
 """)
 
-tabs = st.tabs(["🧪 Interactive Demo", "📊 Batch Analytics & Stats", "ℹ️ Input Data Info"])
+tabs = st.tabs(["🧪 Interactive Demo", "📊 Batch Analytics & Stats", "ℹ️ Input Data Info", "📈 Output Data Stats"])
 
 # --- TAB 1: INTERACTIVE DEMO ---
 with tabs[0]:
@@ -164,6 +164,11 @@ with tabs[1]:
                     plt.xlabel('Predicted')
                     st.pyplot(fig)
 
+                # --- SAVE TO FILE ---
+                default_path = 'output/final_results.csv'
+                valid_df.to_csv(default_path, index=False, encoding='utf-8')
+                print(f"Results saved to {default_path}")
+
 # --- TAB 3: DATA INFO ---
 with tabs[2]:
     st.header("📂 Input Data Analysis")
@@ -267,3 +272,77 @@ with tabs[2]:
 
     else:
         st.error("Data file not found. Please ensure `data/customer_surveys_hotels_1k.json` exists.")
+
+# --- TAB 4: OUTPUT DATA STATS & CONSISTENCY ---
+with tabs[3]:
+    st.header("🔄 Dynamic Input vs. Output Consistency")
+
+    input_file = 'data/customer_surveys_hotels_1k.json'
+    output_file = 'output/final_results.csv'
+
+    if os.path.exists(output_file) and os.path.exists(input_file):
+        # 1. Load the results from the most recent Batch Run
+        df_out = pd.read_csv(output_file)
+        batch_size = len(df_out)
+
+        # 2. Load the Input data and slice it to match the Batch size
+        with open(input_file, 'r', encoding='utf-8') as f:
+            full_input = json.load(f)
+            # Only use the number of rows that were actually processed
+            df_in_subset = pd.DataFrame(full_input[:batch_size])
+
+        # Normalize sentiment strings
+        df_in_subset['sentiment_clean'] = df_in_subset['survey_sentiment'].str.lower().str.strip()
+        df_out['sentiment_clean'] = df_out['pred_sentiment'].str.lower().str.strip()
+
+        st.info(f"💡 Comparison based on the last batch run of **{batch_size}** rows.")
+
+        # --- 3. SIDE-BY-SIDE DISTRIBUTIONS ---
+        st.subheader("📊 Sentiment Distribution Shift")
+        c1, c2 = st.columns(2)
+
+        with c1:
+            st.markdown(f"**Original Labels (First {batch_size} Rows)**")
+            fig_in, ax_in = plt.subplots(figsize=(6, 4))
+            sns.countplot(x='sentiment_clean', data=df_in_subset, palette='Blues',
+                          ax=ax_in, order=['positive', 'neutral', 'negative'])
+            st.pyplot(fig_in)
+
+        with c2:
+            st.markdown(f"**AI Predicted Labels (Batch Output)**")
+            fig_out, ax_out = plt.subplots(figsize=(6, 4))
+            sns.countplot(x='sentiment_clean', data=df_out, palette='Oranges',
+                          ax=ax_out, order=['positive', 'neutral', 'negative'])
+            st.pyplot(fig_out)
+
+        st.markdown("---")
+
+        # --- 4. GUARDRAIL HEATMAP ---
+        st.subheader("🔍 Logic Consistency Heatmap")
+        # Ensure we are checking the scores against predictions for this specific batch
+        consistency_matrix = pd.crosstab(df_out['score'], df_out['sentiment_clean'])
+
+        fig_heat, ax = plt.subplots(figsize=(10, 3))
+        sns.heatmap(consistency_matrix, annot=True, fmt='d', cmap='Greens', ax=ax)
+        plt.xlabel("AI Predicted Sentiment")
+        plt.ylabel("User Score (1-5)")
+        st.pyplot(fig_heat)
+
+        # --- 5. COMPLIANCE METRICS ---
+        low_score_compliant = len(df_out[(df_out['score'] <= 2) & (df_out['sentiment_clean'] == 'negative')])
+        high_score_compliant = len(df_out[(df_out['score'] >= 4) & (df_out['sentiment_clean'] == 'positive')])
+
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Batch Size", batch_size)
+
+        # Calculate percentages safely to avoid division by zero
+        low_total = len(df_out[df_out['score'] <= 2])
+        high_total = len(df_out[df_out['score'] >= 4])
+
+        m2.metric("Low Score Logic (≤2)", f"{(low_score_compliant / low_total * 100):.1f}%" if low_total > 0 else "N/A")
+        m3.metric("High Score Logic (≥4)",
+                  f"{(high_score_compliant / high_total * 100):.1f}%" if high_total > 0 else "N/A")
+
+    else:
+        st.warning(
+            "⚠️ No batch results found. Please go to 'Batch Analytics & Stats' and click 'Run Batch Evaluation' first.")

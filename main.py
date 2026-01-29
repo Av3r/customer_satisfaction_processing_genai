@@ -180,6 +180,10 @@ class PipelineManager:
         return result
 
     def run_batch(self, input_path: str, output_path: str, limit: Optional[int] = None):
+        if limit is None:
+            user_limit = input("Enter batch limit (leave blank for all): ").strip()
+            limit = int(user_limit) if user_limit and int(user_limit) > 0 else None
+
         with open(input_path, 'r', encoding='utf-8') as f:
             surveys = json.load(f)[:limit] if limit else json.load(f)
 
