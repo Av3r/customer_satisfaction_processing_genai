@@ -1,360 +1,347 @@
 import json
+import logging
 import os
 from enum import Enum
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Optional
 
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import seaborn as sns
-import spacy
 from dotenv import load_dotenv
+from langchain_community.vectorstores import FAISS
 from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from pydantic import BaseModel, Field
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics.pairwise import cosine_similarity
-from tqdm import tqdm
+from tqdm import tqdm  # Progress bar for batch processing
 
+# --- CONFIGURATION & SETUP ---
 load_dotenv()
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-# STEP 1: Model and environment setup
-# - Load environment variables, initialize LLM (low temperature for consistent outputs)
-# - Initialize embedding model used for RAG
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)  # low temperature for consistent outputs
-
-# Small, inexpensive embedding model for RAG
-embeddings_model = OpenAIEmbeddings(model="text-embedding-3-small")
-
-# Check if the OPENAI_API_KEY is set
 if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError("Add API Key into -> .env")
-
-# Load Spacy NER model
-print("Loading NER model...")
-try:
-    nlp = spacy.load("en_core_web_md")
-except OSError:
-    print("Downloading - spacy: python -m spacy download en_core_web_md")
-    os.system("python -m spacy download en_core_web_md")
-    nlp = spacy.load("en_core_web_md")
+    raise ValueError("Please set OPENAI_API_KEY in your .env file")
 
 
-# STEP 2: Data preparation and RAG indexing
-def get_embedding(text: str) -> List[float]:
-    """Create embeddings for the text"""
-    text = text.replace("\n", " ")
-    return embeddings_model.embed_query(text)
+# --- DATA MODELS ---
 
-
-def prepare_trips_engine(trips_file: str) -> pd.DataFrame:
-    """Loads trips, normalizes data and creates a vector index"""
-
-    global df
-    try:
-        df = pd.read_json(trips_file)
-    except ValueError:
-        print('Error loading JSON file. Please check the file format.')
-
-    df['trip_ref_id'] = df.index
-    # Normalize city and country names to lowercase
-    df['City_lower'] = df['City'].str.lower()
-    df['Country_lower'] = df['Country'].str.lower()
-
-    df['rag_content'] = df.apply(
-        lambda x: f"Trip ID {x['trip_ref_id']}: Trip to {x['City']}, {x['Country']}. "
-                  f"Activities: {', '.join(x['Extra activities'])}. "
-                  f"Details: {x['Trip details']}", axis=1
-    )
-
-    # RAG indexing
-    embeddings = []
-    # We use tqdm for the progress bar
-    for text in tqdm(df['rag_content'], desc="Creating vectors (Embeddings)"):
-        embeddings.append(get_embedding(text))
-
-    df['vector'] = list(embeddings)
-    return df
-
-
-# STEP 3: AI functions and output parsing
-
-# Enum to ensure model outputs map to a strict set of sentiment labels
 class SentimentEnum(str, Enum):
     POSITIVE = "positive"
     NEGATIVE = "negative"
     NEUTRAL = "neutral"
 
 
-class ReviewAnalysis(BaseModel):
+class CustomerIntent(BaseModel):
+    """
+    Structured output to capture not just sentiment, but actionable intent.
+    Distinguishes between what users want vs. what they want to avoid.
+    """
     sentiment: SentimentEnum = Field(
-        description="The sentiment of the review. Must be explicitly 'positive', 'negative', or 'neutral'.")
-    summary: str = Field(description="One sentence summary of the review")
+        description="The overall sentiment of the review."
+    )
+    summary: str = Field(
+        description="A concise one-sentence summary of the review."
+    )
+    desired_destinations: List[str] = Field(
+        description="Specific cities or countries the user explicitly wants to visit next.",
+        default_factory=list
+    )
+    disliked_destinations: List[str] = Field(
+        description="Cities or countries the user disliked, visited recently, or wants to avoid.",
+        default_factory=list
+    )
+    activity_keywords: List[str] = Field(
+        description="Key activities mentioned as positive preferences (e.g. 'hiking', 'museums', 'beach').",
+        default_factory=list
+    )
 
 
-parser = PydanticOutputParser(pydantic_object=ReviewAnalysis)
+# --- CORE LOGIC CLASS ---
 
-PROMPT_TEMPLATE = """
-You are an expert Customer Experience AI. Analyze the following hotel review.
-Strictly categorize sentiment as 'positive', 'negative', or 'neutral'. 
-Do NOT use 'mixed'. If there are pros and cons, decide which prevails or use 'neutral'.
+class TravelAssistant:
+    def __init__(self, trips_file: str, model_name: str = "gpt-4o-mini"):
+        """
+        Initializes the AI Travel Assistant.
+        Loads data, prepares the vector store, and sets up the LLM chain.
+        """
+        self.trips_df = self._load_data(trips_file)
 
-Review: "{review_text}"
+        # Initialize AI Components
+        self.llm = ChatOpenAI(model=model_name, temperature=0)
+        self.embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
-{format_instructions}
-"""
+        # Initialize Logic components
+        self.parser = PydanticOutputParser(pydantic_object=CustomerIntent)
+        self.chain = self._build_analysis_chain()
+        self.vector_store = self._build_vector_store()
 
-prompt = PromptTemplate(
-    template=PROMPT_TEMPLATE,
-    input_variables=["review_text"],
-    partial_variables={"format_instructions": parser.get_format_instructions()}
-)
+    def _load_data(self, filepath: str) -> pd.DataFrame:
+        """Loads and normalizes the trips dataset."""
+        if not os.path.exists(filepath):
+            raise FileNotFoundError(f"Trips file not found: {filepath}")
 
-chain = prompt | llm | parser
+        try:
+            df = pd.read_json(filepath)
+            df['trip_ref_id'] = df.index
+            # Normalize for matching
+            df['City_norm'] = df['City'].str.lower().str.strip()
+            df['Country_norm'] = df['Country'].str.lower().str.strip()
+            logger.info(f"Loaded {len(df)} trips from {filepath}")
+            return df
+        except Exception as e:
+            logger.error(f"Failed to load data: {e}")
+            raise
+
+    def _build_vector_store(self) -> FAISS:
+        """
+        Builds a FAISS index for fast semantic retrieval.
+        Runs purely on CPU (requires `pip install faiss-cpu`).
+        """
+        logger.info("Building Vector Index (CPU)...")
+
+        # Construct rich semantic text for embedding
+        texts = [
+            f"Trip to {row['City']}, {row['Country']}. "
+            f"Activities: {', '.join(row['Extra activities'])}. "
+            f"Details: {row['Trip details']}"
+            for _, row in self.trips_df.iterrows()
+        ]
+
+        # Store metadata to retrieve full trip details later
+        metadatas = self.trips_df.to_dict('records')
+
+        # Create Index
+        return FAISS.from_texts(texts, self.embeddings, metadatas=metadatas)
+
+    def _build_analysis_chain(self):
+        """Creates the LangChain for intent extraction."""
+        template = """
+        You are an expert Customer Experience AI. Analyze the following hotel review.
+
+        Your Goal:
+        1. Determine the sentiment (positive, negative, neutral).
+        2. Extract distinct LOCATIONS. Crucially, distinguish between where the user WANTS to go 
+           vs. where they disliked or just returned from.
+        3. Extract activity preferences (keywords).
+
+        Review: "{review_text}"
+
+        {format_instructions}
+        """
+
+        prompt = PromptTemplate(
+            template=template,
+            input_variables=["review_text"],
+            partial_variables={"format_instructions": self.parser.get_format_instructions()}
+        )
+
+        return prompt | self.llm | self.parser
+
+    def analyze_review(self, review_text: str, score: int, review_id: str = "unknown") -> Dict[str, Any]:
+        """
+        Main entry point for analyzing a single review.
+        Orchestrates Analysis -> Logic Gate -> Recommendation/Discount.
+        """
+        # 1. AI Analysis (Intent Extraction)
+        try:
+            analysis: CustomerIntent = self.chain.invoke({"review_text": review_text})
+        except Exception as e:
+            logger.error(f"LLM extraction failed: {e}")
+            return {"error": str(e), "action": "ERROR"}
+
+        # 2. Logic Gate (Hard rules override LLM sentiment)
+        # If score is very low/high, we force the sentiment category
+        final_sentiment = analysis.sentiment
+        if score <= 2:
+            final_sentiment = SentimentEnum.NEGATIVE
+        elif score >= 5:
+            final_sentiment = SentimentEnum.POSITIVE
+
+        # 3. Decision
+        action = "RECOMMENDATION" if final_sentiment == SentimentEnum.POSITIVE else "DISCOUNT"
+
+        result = {
+            "review_id": review_id,
+            "snippet": review_text[:50].replace("\n", " ") + "...",
+            "score": score,
+            "sentiment_detected": final_sentiment,
+            "action": action,
+            "summary": analysis.summary,
+            "wants": ", ".join(analysis.desired_destinations),
+            "avoids": ", ".join(analysis.disliked_destinations),
+            "activities": ", ".join(analysis.activity_keywords)
+        }
+
+        # 4. Execute Action
+        if action == "RECOMMENDATION":
+            recs = self._get_recommendations(analysis)
+            # Flatten recommendations for easier CSV/Display usage
+            for i, rec in enumerate(recs):
+                prefix = f"Rec_{i + 1}"
+                result[f"{prefix}_City"] = rec['City']
+                result[f"{prefix}_Country"] = rec['Country']
+                result[f"{prefix}_Reason"] = rec['Match_Reason']
+        else:
+            result["Discount_Code"] = "SORRY_2025"
+
+        return result
+
+    def _get_recommendations(self, intent: CustomerIntent, k: int = 3) -> List[Dict]:
+        """
+        Smart Recommendation Engine.
+        1. Construct a semantic query based on desires + activities.
+        2. Retrieve more candidates than needed (k*2).
+        3. Filter OUT disliked locations.
+        """
+
+        # Construct query: prioritize explicit desires, then activities
+        query_parts = intent.desired_destinations + intent.activity_keywords
+        query_text = " ".join(query_parts)
+
+        if not query_text.strip():
+            # Fallback if review was vague but positive
+            query_text = "Highly rated amazing travel experiences"
+
+        # Search Vector DB
+        # We fetch 2x the needed amount to allow for filtering
+        docs_and_scores = self.vector_store.similarity_search_with_score(query_text, k=k * 2)
+
+        recommendations = []
+        avoid_set = {loc.lower().strip() for loc in intent.disliked_destinations}
+        seen_ids = set()
+
+        for doc, score in docs_and_scores:
+            trip = doc.metadata
+            trip_id = trip['trip_ref_id']
+            city_norm = trip.get('City_norm', '')
+            country_norm = trip.get('Country_norm', '')
+
+            # FILTER: Skip duplicates
+            if trip_id in seen_ids:
+                continue
+
+            # FILTER: Skip explicitly disliked locations
+            if city_norm in avoid_set or country_norm in avoid_set:
+                continue
+
+            # Determine reason
+            reason = "Semantic Match"
+            # Simple check if it matches explicit desire (could be improved with fuzzy matching)
+            for desire in intent.desired_destinations:
+                if desire.lower() in city_norm or desire.lower() in country_norm:
+                    reason = "Explicit Destination Match"
+                    break
+
+            recommendations.append({
+                **trip,
+                "Match_Reason": reason,
+                "Score": float(score)
+            })
+
+            seen_ids.add(trip_id)
+            if len(recommendations) >= k:
+                break
+
+        return recommendations
 
 
-def extract_ner_locations(text: str) -> List[str]:
-    """Extracts unique locations (GPE) using SpaCy."""
-    doc = nlp(text)
-    return list(set([ent.text.strip() for ent in doc.ents if ent.label_ == "GPE"]))
+# --- BATCH PROCESSOR ---
 
-
-# STEP 4: Hybrid matching (NER + RAG)
-def find_best_3_trips(review_text: str, ner_locs: List[str], trips_df: pd.DataFrame) -> List[Tuple[Any, str]]:
+def run_batch_pipeline(assistant: TravelAssistant, limit: Optional[int] = None):
     """
-    Hybrid algorithm within recommendation pipeline:
-    Phase 1: NER hard filter (match by city or country)
-    Phase 2: RAG semantic search (rank by embedding similarity)
+    Processes a JSON file of reviews in the background and saves to CSV.
+    No interactive chat.
     """
-    recommendations = []
-    seen_indices = set()
-
-    # Phase 1: NER (Hard Filter)
-    for loc in ner_locs:
-        loc_lower = loc.lower()
-        matches = trips_df[
-            (trips_df['City_lower'] == loc_lower) |
-            (trips_df['Country_lower'] == loc_lower)
-            ]
-
-        for idx, row in matches.iterrows():
-            if idx not in seen_indices:
-                recommendations.append((row, "NER_Location_Match"))
-                seen_indices.add(idx)
-
-    # If we already have 3 recommendations from NER, return them
-    if len(recommendations) >= 3:
-        return recommendations[:3]
-
-    # Phase 2: RAG semantic search (fallback / complement to NER)
-    # Create query embedding for the review
-    review_vector = np.array(embeddings_model.embed_query(review_text)).reshape(1, -1)
-
-    # Trips vectors matrix
-    trips_matrix = np.array(trips_df['vector'].tolist())
-
-    # Cosine similarity
-    scores = cosine_similarity(review_vector, trips_matrix)[0]
-    best_indices = np.argsort(scores)[::-1]
-
-    for idx in best_indices:
-        if len(recommendations) >= 3: break
-        if idx not in seen_indices:
-            recommendations.append((trips_df.iloc[idx], "RAG_Activity_Match"))
-            seen_indices.add(idx)
-
-    return recommendations[:3]
-
-
-# ---  MAIN LOGIC (SINGLE REVIEW) ---
-
-def analyze_single_review(text: str, score: int, review_id: str, trips_df: pd.DataFrame) -> Dict[str, Any]:
-    """Analysis of a single review."""
-
-    # 1. AI analysis
-    try:
-        llm_res = chain.invoke({"review_text": text})
-        ner_locs = extract_ner_locations(text)
-
-        sentiment_str = llm_res.sentiment.value
-    except Exception as e:
-        return {"error": str(e), "review_snippet": text[:50], "action": "ERROR"}
-
-    # 2. Guardrails & logic adjustments
-    final_sentiment = llm_res.sentiment.lower()
-    if score <= 2:
-        final_sentiment = "negative"
-    elif score >= 4:
-        final_sentiment = "positive"
-    else:
-        final_sentiment = sentiment_str
-
-    # 3. Decision
-    # action = "DISCOUNT" if final_sentiment in ["negative", "neutral"] else "RECOMMENDATION"
-    if final_sentiment == "positive":
-        action = "RECOMMENDATION"
-    else:
-        action = "DISCOUNT"
-
-    result = {
-        "review_id": review_id,
-        "review_snippet": text[:50].replace("\n", " ") + "...",
-        "score": score,
-        "pred_sentiment": final_sentiment,
-        "action": action,
-        "summary": llm_res.summary,
-        "ner_locations": ", ".join(ner_locs)
-    }
-
-    # 4. Execute action
-    if action == "RECOMMENDATION":
-        recs = find_best_3_trips(text, ner_locs, trips_df)
-        for i, (trip, reason) in enumerate(recs):
-            prefix = f"Rec_{i + 1}"
-            result[f"{prefix}_Ref_ID"] = trip['trip_ref_id']
-            result[f"{prefix}_City"] = trip['City']
-            result[f"{prefix}_Country"] = trip['Country']
-            result[f"{prefix}_Reason"] = reason
-            result[f"{prefix}_Activities"] = ", ".join(trip['Extra activities'])
-    else:
-        result["Discount_Code"] = "SORRY_2025"
-
-    return result
-
-
-# --- EVALUATION AND VISUALIZATION ---
-
-def visualize_results(csv_path):
-    if not os.path.exists(csv_path): return
-    df = pd.read_csv(csv_path)
-    if df.empty: return
-
-    os.makedirs('output', exist_ok=True)
-    sns.set_style("whitegrid")
-
-    # Confusion matrix
-    if 'true_sentiment' in df.columns:
-        valid = df[df['true_sentiment'] != 'unknown']
-        if not valid.empty:
-            plt.figure(figsize=(6, 5))
-            labels = sorted(valid['true_sentiment'].unique())
-            cm = confusion_matrix(valid['true_sentiment'], valid['pred_sentiment'], labels=labels)
-            sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=labels, yticklabels=labels)
-            plt.title('Confusion Matrix')
-            plt.tight_layout()
-            plt.savefig('output/confusion_matrix.png')
-            print("📈 Saved: output/confusion_matrix.png")
-
-    # Sources of recommendations
-    reasons = []
-    for col in ['Rec_1_Reason', 'Rec_2_Reason', 'Rec_3_Reason']:
-        if col in df.columns:
-            reasons.extend(df[col].dropna().tolist())
-
-    if reasons:
-        plt.figure(figsize=(8, 5))
-        sns.countplot(y=reasons, palette='viridis')
-        plt.title('Sources of recommendations (NER vs RAG)')
-        plt.tight_layout()
-        plt.savefig('output/reasons_distribution.png')
-        print("📈 Saved: output/reasons_distribution.png")
-
-
-# --- BATCH PROCESS ---
-
-def run_batch_pipeline(trips_df, limit=None):
     INPUT_FILE = 'data/customer_surveys_hotels_1k.json'
     OUTPUT_FILE = 'output/final_results.csv'
 
-    print(f"\nStarting processing (Limit: {limit})...")
+    os.makedirs('output', exist_ok=True)
+    print(f"\n🚀 Starting BATCH processing (Limit: {limit})...")
+    print(f"📂 Reading from: {INPUT_FILE}")
 
     try:
         with open(INPUT_FILE, 'r', encoding='utf-8') as f:
             surveys = json.load(f)
     except FileNotFoundError:
-        print(f"Error: File not found: {INPUT_FILE}")
-        return
-    except json.JSONDecodeError:
-        print(f"Error: File {INPUT_FILE} is not valid JSON.")
+        print(f"❌ Error: File not found: {INPUT_FILE}")
         return
 
     data = surveys[:limit] if limit else surveys
     results = []
 
-    for item in tqdm(data):
-        # Safely retrieve data (using .get to guard against missing keys)
+    # Use tqdm for a progress bar
+    for item in tqdm(data, desc="Processing Reviews"):
+        # Safely retrieve data
         r_id = item.get('id', 'unknown_id')
         text = item.get('review', "")
         score = item.get('customer_satisfaction_score', 3)
-        true_sent = item.get('survey_sentiment', 'unknown')
 
-        # Analysis
-        res = analyze_single_review(text, score, r_id, trips_df)
+        # Analyze
+        res = assistant.analyze_review(text, score, r_id)
 
-        # Add ground truth
-        res['true_sentiment'] = true_sent
-        if res['true_sentiment'] != 'unknown':
-            res['sentiment_match'] = (res['true_sentiment'] == res['pred_sentiment'])
+        # Append ground truth for comparison if available
+        res['true_sentiment'] = item.get('survey_sentiment', 'unknown')
         results.append(res)
 
+    # Save to CSV
     df_out = pd.DataFrame(results)
-    # When saving, enforce utf-8 encoding
     df_out.to_csv(OUTPUT_FILE, index=False, encoding='utf-8')
-    print(f"💾 Saved results: {OUTPUT_FILE}")
-
-    # Quick metric
-    if 'sentiment_match' in df_out.columns:
-        acc = df_out['sentiment_match'].mean() * 100
-        print(f"📊 Accuracy: {acc:.2f}%")
-
-    visualize_results(OUTPUT_FILE)
+    print(f"\n✅ Done! Saved results to: {OUTPUT_FILE}")
 
 
-def run_manual_demo(trips_df):
+# --- DEMO RUNNER ---
+
+def run_manual_demo(assistant: TravelAssistant):
     print("\n💡 DEMO MODE (type 'exit' to quit)")
+    print("   Note: Try reviews like 'I hated Paris, I want a beach vacation.'")
+
     while True:
         text = input("\n📝 Review: ")
-        if text.strip().lower() == 'exit': break
+        if text.strip().lower() == 'exit':
+            break
 
-        # --- VALIDATION LOOP START ---
         while True:
-            user_input = input("⭐ Rating (1-5): ")
-
-            # Check if input is a valid integer
             try:
-                score = int(user_input)
-                # Check if it is within the 1-5 range
-                if 1 <= score <= 5:
-                    break
-                else:
-                    print("   ⚠️ Please enter a number between 1 and 5.")
+                score_input = input("⭐ Rating (1-5): ")
+                score = int(score_input)
+                if 1 <= score <= 5: break
+                print("   ⚠️ Enter number 1-5.")
             except ValueError:
-                print("   ⚠️ Invalid input. Please enter a number.")
-        # --- VALIDATION LOOP END ---
+                print("   ⚠️ Invalid input.")
 
         print("⏳ Analyzing...")
+        res = assistant.analyze_review(text, score, "manual_test")
 
-        # Remember to include the dummy ID "manual_test" here!
-        res = analyze_single_review(text, score, "manual_test", trips_df)
-
-        print(f"\n--- RESULT ({res['action']}) ---")
-        print(f"Sentiment: {res['pred_sentiment']}")
-        print(f"Summary: {res['summary']}")
+        print(f"\n--- RESULT: {res['action']} ---")
+        print(f"Sentiment: {res['sentiment_detected']}")
+        print(f"Summary:   {res['summary']}")
 
         if res['action'] == "RECOMMENDATION":
+            print(f"Intent detected: Wants [{res['wants']}], Avoids [{res['avoids']}]")
+            print("\nRecommended Trips:")
             for i in range(1, 4):
-                if f"Rec_{i}_City" in res:
-                    print(
-                        f"   {i}. {res[f'Rec_{i}_City']} ({res[f'Rec_{i}_Reason']}) -> {res[f'Rec_{i}_Activities']}")
+                key_city = f"Rec_{i}_City"
+                if key_city in res:
+                    print(f"   {i}. {res[key_city]}, {res[f'Rec_{i}_Country']}")
+                    print(f"      Reason: {res[f'Rec_{i}_Reason']}")
         else:
-            print(f"🎟️ Discount code: {res.get('Discount_Code')}")
+            print(f"🎟️ Discount Code: {res.get('Discount_Code')}")
 
 
 if __name__ == "__main__":
-    # One-time initialization
-    trips_df = prepare_trips_engine('data/trips_data.json')
+    # Ensure data directory exists
+    if not os.path.exists('data/trips_data.json'):
+        print("❌ Error: 'data/trips_data.json' not found. Please ensure the data file exists.")
+    else:
+        # Initialize the Assistant (Load Logic & Data once)
+        try:
+            assistant = TravelAssistant(trips_file='data/trips_data.json')
 
-    # run_batch_pipeline(trips_df)  # ,  limit = 100)
+            # --- CHOOSE MODE HERE ---
+            # Uncomment the line below to run the Batch Process
+            run_batch_pipeline(assistant, limit=20)  # Set limit=10 for testing
 
-    run_manual_demo(trips_df)
+            # Comment the line below to disable the Manual Demo
+            # run_manual_demo(assistant)
+
+        except Exception as e:
+            print(f"❌ Initialization Failed: {e}")
